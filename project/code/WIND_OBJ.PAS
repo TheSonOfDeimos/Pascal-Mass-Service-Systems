@@ -200,6 +200,7 @@ implementation
         outtextxy(100, align, line);
         align:= align + 12;
       end;
+      j:= readkey;
       close(input);
 
 
@@ -223,16 +224,8 @@ implementation
 
       1: begin
           case flag2 of
-            0: begin
-                alig:= 10;
-                table(alig);
-                repeat
-                  j:= readkey;
-                  if j = #80 then
-                    alig:= alig - 12;
-                  table(alig);
-                until (j = #27);
-               end;
+            0: table(10);
+
           end;
          end;
 
