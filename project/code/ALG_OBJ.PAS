@@ -1,0 +1,179 @@
+unit alg_obj;
+
+interface
+
+  uses
+     boss_obj, types, graph, crt, tpko_obj;
+
+  TYPE
+    alg = object
+      constructor init;
+      procedure buff_create(var head:buff; var tail:buff);
+      procedure main(lambdaO:real; kolsum, flag2, zeroing, dynamORconst:INTEGER);
+    end;
+
+implementation
+
+  procedure alg.buff_create(var head:buff; var tail:buff);
+            var
+                x:buff;
+                i:integer;
+            begin
+               new(head);
+               head^.next:= nil;
+               head^.prev:= nil;
+               x:= head;
+               randomize;
+               x^.bufn:= 0;
+               x^.buft:= 0;
+               x^.bufp:= 4;
+               for i:= 0 to 3 do begin
+                   new(x^.next);
+                   x^.next^.prev:= x;
+                   x:= x^.next;
+                   x^.next:= nil;
+                   x^.bufn:= 0;
+                   x^.buft:= 0;
+                   x^.bufp:= 3 - i;
+               end;
+               tail:= x;
+            end;
+
+  procedure alg.main(lambdaO:real; kolsum, flag2, zeroing, dynamORconst:INTEGER);
+    var
+        gr:graphik;
+        bos:boss;
+        head, tail, indbuf, ob:buff;
+        elem1, elem2:call;
+        counts, counts1, counts2:count;
+        kolprev, kolprevious, i, save	, req_in_buf : integer;
+        tosv: real;
+        j:STRING;
+        output:text;
+    begin
+
+      buff_create(head, tail);
+      elem1.tpost:= 0;
+      elem2.tpost:= 0;
+      elem1.nmin:= 1;
+      elem2.nmin:= 2;
+      indbuf:= tail;
+      req_in_buf:= 0;
+
+      kolprev:= 0;
+      tosv:= 0;
+
+      {ALL}
+      counts.kol:= 0;
+      counts.kolobr:= 0;
+      counts.kotk:= 0;
+      counts.tog:= 0;
+
+      {1 CALL}
+      counts1.kol:= 0;
+      counts1.kolobr:= 0;
+      counts1.kotk:= 0;
+      counts1.tog:= 0;
+
+      {2 CALL}
+      counts2.kol:= 0;
+      counts2.kolobr:= 0;
+      counts2.kotk:= 0;
+      counts2.tog:= 0;
+
+      if lambdao = 0 then
+         lambdao:= 1;
+
+      assign(output, 'output.txt');
+      rewrite(output);
+
+      gr.coordinates(45, 440, 'numUP'); {Draw axes}
+
+      {algorithm}
+      {while lambdao <= 3 do begin}
+
+        while counts.kol <> kolsum do begin
+
+            if kolprevious <> counts.kol then begin
+
+               if (dynamORconst = 1) and (counts.kol mod (kolsum div 20) = 0) then begin
+                 lambdao:= lambdaO + 0.1;
+               end;
+
+               if (counts.kol mod (kolsum div 20) = 0) then begin
+                  WriteLn(output, 'Lambda:  ', lambdao:5:1);
+                  writeln(output, 'c0:  ', counts.kol:5, counts.kolobr:5, counts.kotk:5, '  ',
+                                  (counts.kotk/(counts.kol + 1) * 100):5:3, '  ', counts.tog:5:3);
+                  writeln(output, 'c1:  ', counts1.kol:5, counts1.kolobr:5, counts1.kotk:5, '  ',
+                                  (counts1.kotk/(counts1.kol + 1) * 100):5:3, '  ', counts1.tog:5:3);
+                  writeln(output, 'c2:  ', counts2.kol:5, counts2.kolobr:5, counts2.kotk:5, '  ',
+                                  (counts2.kotk/(counts2.kol + 1)  * 100):5:3, '  ', counts2.tog:5:3);
+                  WriteLn(output, '');
+                  WriteLn(output, '');
+               end;
+
+               kolprevious:= counts.kol;
+            end;
+
+            bos.main(elem1, elem2, kolprev, req_in_buf, tosv, lambdao, indbuf, tail, ob, counts, counts1, counts2);
+            {what graph to draw?}
+            case flag2 of
+              0: begin
+                  gr.DrawPoint(counts.kol, counts.kotk, kolsum, 0);
+
+                 end;
+              1: begin
+                  gr.DrawPoint(counts.kol, counts.tog, kolsum, 1);
+
+                 end;
+              2: begin
+                  gr.DrawPoint(counts.kol, req_in_buf, kolsum, 2);
+
+                 end;
+            end;
+        end;
+{
+        WriteLn(output, 'Lambda:  ', lambdao:5:1);
+        writeln(output, 'c0:  ', counts.kol:5, counts.kolobr:5, counts.kotk:5, '  ',
+                        (counts.kotk/(counts.kol + 1) * 100):5:3, '  ', counts.tog:5:3);
+        writeln(output, 'c1:  ', counts1.kol:5, counts1.kolobr:5, counts1.kotk:5, '  ',
+                        (counts1.kotk/(counts1.kol + 1) * 100):5:3, '  ', counts1.tog:5:3);
+        writeln(output, 'c2:  ', counts2.kol:5, counts2.kolobr:5, counts2.kotk:5, '  ',
+                        (counts2.kotk/(counts2.kol + 1)  * 100):5:3, '  ', counts2.tog:5:3);
+        WriteLn(output, '');
+        WriteLn(output, '');
+
+
+
+        lambdao:= lambdao + 0.1;
+      end;
+}
+      if counts.kolobr = 0 then
+         counts.kolobr:= 1;
+
+      {cout results}
+      case flag2 of
+        0: gr.simulationINFO(counts.tog, indbuf, ob, counts.kol , counts.kotk, counts.kolobr , req_in_buf, 0);
+        1: gr.simulationINFO(counts.tog, indbuf, ob, counts.kol , counts.kotk, counts.kolobr , req_in_buf, 1);
+        2: gr.simulationINFO(counts.tog, indbuf, ob, counts.kol , counts.kotk, counts.kolobr , req_in_buf, 2);
+      end;
+      close(output);
+
+      dispose(head);
+      Dispose(tail);
+
+      elem1.tpost:= 0;
+      elem2.tpost:= 0;
+      elem1.nmin:= 1;
+      elem2.nmin:= 2;
+      indbuf:= tail;
+      req_in_buf:= 0;
+
+      j:= readkey;
+    end;
+
+  constructor alg.init;
+    begin
+    end;
+
+end.
