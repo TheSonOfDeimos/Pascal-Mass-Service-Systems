@@ -1,4 +1,4 @@
-  USES
+USES
   crt, graph, tpko_obj, GUI_obj, wind_obj;
 
   VAR

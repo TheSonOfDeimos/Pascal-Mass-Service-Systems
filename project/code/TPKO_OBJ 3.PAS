@@ -9,18 +9,18 @@ TYPE
   graphik = object
     constructor init;
     procedure coordinates(x,y:integer; func:string);
-    procedure DrawPoint(counts:count; kolsum:INTEGER; req_in_buf:LONGINT; flag2:INTEGER);
+    procedure DrawPoint(counts, counts1, counts2:count; kolsum:INTEGER; req_in_buf:LONGINT; flag2:INTEGER);
     procedure SimulationInfo(tog:real; indbuf, ob:buff; kol, kotk, kolobr, req_in_buf , graphTYPE:integer);
   end;
 
 implementation
 
-  procedure graphik.DrawPoint(counts:count; kolsum:INTEGER; req_in_buf:LONGINT; flag2:INTEGER);
+  procedure graphik.DrawPoint(counts, counts1, counts2:count; kolsum:INTEGER; req_in_buf:LONGINT; flag2:INTEGER);
     begin
       case flag2 of
           0: putpixel(round(counts.kol/(kolsum/560)) + 45, 440 - (round((counts.kotk/(counts.kol + 1))* 200)) , 15);
           1: putpixel(round(counts.kol/(kolsum/560)) + 45, 440 - (round((counts.tog/(counts.kolobr + 1)) * 12)) , 15);
-          2: putpixel(round(counts.kol/(kolsum/560)) + 45, 440 - (round((req_in_buf/(counts.kolobr + 1)) * 50)) , 15);
+          2: putpixel(round(counts.kol/(kolsum/560)) + 45, 440 - (round((req_in_buf/(counts.kol + 1)))) , 15);
       end;
 
     end;

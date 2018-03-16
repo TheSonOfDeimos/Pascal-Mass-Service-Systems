@@ -46,7 +46,8 @@ implementation
         head, tail, indbuf, ob:buff;
         elem1, elem2:call;
         counts, counts1, counts2:count;
-        kolprev, kolprevious, i, save	, req_in_buf : integer;
+        kolprev, kolprevious, i, save : integer;
+        req_in_buf:LONGINT;
         tosv: real;
         j:STRING;
         output:text;
@@ -125,20 +126,10 @@ implementation
 
             bos.main(elem1, elem2, kolprev, req_in_buf, tosv, lambdao, indbuf, tail, ob, counts, counts1, counts2);
             {what graph to draw?}
-            case flag2 of
-              0: begin
-                  gr.DrawPoint(counts.kol, counts.kotk, kolsum, 0);
+            gr.DrawPoint(counts, kolsum, req_in_buf, flag2);
 
-                 end;
-              1: begin
-                  gr.DrawPoint(counts.kol, counts.tog, kolsum, 1);
 
-                 end;
-              2: begin
-                  gr.DrawPoint(counts.kol, req_in_buf, kolsum, 2);
 
-                 end;
-            end;
         end;
       close(typedoutp);
       if counts.kolobr = 0 then
