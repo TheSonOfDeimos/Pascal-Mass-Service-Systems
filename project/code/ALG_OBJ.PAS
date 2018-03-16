@@ -98,11 +98,10 @@ implementation
         while counts.kol <> kolsum do begin
 
             if kolprevious <> counts.kol then begin
-               if (dynamORconst = 1) and (counts.kol mod (kolsum div 20) = 0) then begin
-                 lambdao:= lambdaO + 0.1;
-               end;
 
-               if (counts.kol mod (kolsum div 20) = 0) then begin
+
+
+               if (counts.kol mod (kolsum div 21) = 0) and (counts.kol <> 0)then begin
 
                   write(typedoutp, counts, counts1, counts2);
 
@@ -115,6 +114,10 @@ implementation
                                   (counts2.kotk/(counts2.kol + 1)  * 100):5:3, '  ', counts2.tog:5:3);
                   WriteLn(output, '');
                   WriteLn(output, '');
+               end;
+
+               if (dynamORconst = 1) and (counts.kol mod (kolsum div 21) = 0) and (counts.kol <> 0) then begin
+                 lambdao:= lambdaO + 0.1;
                end;
 
                kolprevious:= counts.kol;

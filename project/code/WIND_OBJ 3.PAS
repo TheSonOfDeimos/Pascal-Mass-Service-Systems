@@ -12,7 +12,7 @@ interface
       procedure values(var tick, tick2, kolsum:INTEGER; var lambdao:real);
       procedure meta(var tick:INTEGER);
       procedure table(align:INTEGER);
-      procedure plot(var tick:INTEGER);
+      procedure plot(tick:INTEGER);
       procedure main(flag, flag2:INTEGER;  var mode1, kolsum, zeroing, dynamORconst:INTEGER; var lambdao:REAL);
       constructor init(var tick:INTEGER);
     end;
@@ -200,7 +200,7 @@ implementation
       align:= 10;
 
       Seek(tpinput, 0) ;
-      for n:= 0 to 19  do begin
+      while not eof(tpinput)  do begin
 
         read(tpinput, counts);
         str((100 * (counts.kotk/(counts.kol + 1))):3:3, save);
@@ -220,38 +220,127 @@ implementation
       close(tpinput);
 
     end;
-  procedure windows.plot(var tick:INTEGER);
+
+  procedure windows.plot(tick:INTEGER);
+    var
+       axe:graphik;
+       bt:STRING;
+       i, res:INTEGER;
+       counts:count;
+       input: file of count;
     begin
+
+      assign(input, 'typedoutp.txt');
+      reset(input);
+      res:= 0;
+      repeat
+        bt:= readkey;
+        if bt = #77 then begin
+          res:= res + 1;
+        end;
+
+        if bt = #75 then begin
+          res:= res - 1;
+        end;
+
+        if res > 2 then begin
+          res:= 0;
+        end;
+        if res < 0 then begin
+          res:= 2;
+        end;
+
+        ClearViewPort;
+        axe.coordinates(45, 440, 'numUP');
+        case res of
+            0: begin
+                  {P all}
+                  SetColor(15);
+                  setfillstyle(solidfill, 15);
+                  seek(input, 0);
+
+                  read(input, counts);
+                  Moveto(45, 440 - round(counts.kotk/(counts.kol + 1) * 200));
+                  read(input, counts);
+                  read(input, counts);
+                  for i:= 1 to 20 do begin
+                    read(input, counts);
+                    lineto(i * 28 + 45, 440 - round(counts.kotk/(counts.kol + 1) * 200));
+                    fillEllipse(i * 28 + 45, 440 - round(counts.kotk/(counts.kol + 1) * 200), 2, 2);
+                    read(input, counts);
+                    read(input, counts);
+                  end;
+                end;
+             1: begin
+                  {p1}
+                  SetColor(2);
+                  setfillstyle(solidfill, 2);
+                  seek(input, 0);
+                  read(input, counts);
+                  read(input, counts);
+                  Moveto(45, 440 - round(counts.kotk/(counts.kol + 1) * 200));
+                  read(input, counts);
+                  for i:= 1 to 20 do begin
+                    read(input, counts);
+                    read(input, counts);
+                    lineto(i * 28 + 45, 440 - round(counts.kotk/(counts.kol + 1) * 200));
+                    fillEllipse(i * 28 + 45, 440 - round(counts.kotk/(counts.kol + 1) * 200), 2, 2);
+                    read(input, counts);
+                  end;
+                end;
+                  {p2}
+             2: begin
+                    SetColor(4);
+                    setfillstyle(solidfill, 4);
+                    seek(input, 0);
+                    read(input, counts);
+                    read(input, counts);
+                    read(input, counts);
+                    Moveto(45, 440 - round(counts.kotk/(counts.kol + 1) * 200));
+                    for i:= 1 to 20 do begin
+                      read(input, counts);
+                      read(input, counts);
+                      read(input, counts);
+                      lineto(i * 28 + 45, 440 - round(counts.kotk/(counts.kol + 1) * 200));
+                      fillEllipse(i * 28 + 45, 440 - round(counts.kotk/(counts.kol + 1) * 200), 2, 2);
+                    end;
+                  end;
+          end;
+        until (bt = #8);
+        close(input);
 
     end;
 
   procedure windows.main(flag, flag2:INTEGER; var mode1, kolsum, zeroing, dynamORconst:INTEGER; var lambdao:REAL);
-  var simulating:alg;
-      alig:integer;
 
-  begin
-    case flag of
-      0: begin
-          simulating.main(lambdao, kolsum, flag2, zeroing, dynamORconst)
-         end;
+    var simulating:alg;
+        alig:integer;
 
-      1: begin
-          case flag2 of
-            0: table(10);
+    begin
+      case flag of
+        0: begin
+            simulating.main(lambdao, kolsum, flag2, zeroing, dynamORconst)
+           end;
 
-          end;
-         end;
+        1: begin
+            case flag2 of
+              0: table(10);
+              1: plot(0);
 
-      2: begin
-          case flag2 of
-            0: mode(mode1);
-            1: values(zeroing, dynamORconst, kolsum, lambdao);
-            2: meta(kolsum);
-          end;
-         end;
+            end;
+           end;
 
+        2: begin
+            case flag2 of
+              0: mode(mode1);
+              1: values(zeroing, dynamORconst, kolsum, lambdao);
+              2: meta(kolsum);
+            end;
+           end;
+
+      end;
     end;
-  end;
+
   constructor windows.init;
     begin
     end;
