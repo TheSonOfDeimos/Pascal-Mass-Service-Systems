@@ -98,6 +98,7 @@ implementation
         while counts.kol <> kolsum do begin
 
             if kolprevious <> counts.kol then begin
+
                if (dynamORconst = 1) and (counts.kol mod (kolsum div 20) = 0) then begin
                  lambdao:= lambdaO + 0.1;
                end;
