@@ -9,18 +9,18 @@ TYPE
   graphik = object
     constructor init;
     procedure coordinates(x,y:integer; func:string);
-    procedure DrawPoint(counts, counts1, counts2:count; kolsum:INTEGER; req_in_buf:LONGINT; flag2:INTEGER);
-    procedure SimulationInfo(tog:real; indbuf, ob:buff; kol, kotk, kolobr, req_in_buf , graphTYPE:integer);
+    procedure DrawPoint(counts:count; kolsum:INTEGER;  flag2:INTEGER);
+    procedure SimulationInfo(tog:real; indbuf, ob:buff; kol, kotk, kolobr, graphTYPE:integer);
   end;
 
 implementation
 
-  procedure graphik.DrawPoint(counts, counts1, counts2:count; kolsum:INTEGER; req_in_buf:LONGINT; flag2:INTEGER));
+  procedure graphik.DrawPoint(counts:count; kolsum:INTEGER; flag2:INTEGER);
     begin
       case flag2 of
           0: putpixel(round(counts.kol/(kolsum/560)) + 45, 440 - (round((counts.kotk/(counts.kol + 1))* 200)) , 15);
           1: putpixel(round(counts.kol/(kolsum/560)) + 45, 440 - (round((counts.tog/(counts.kolobr + 1)) * 12)) , 15);
-          2: putpixel(round(counts.kol/(kolsum/560)) + 45, 440 - (round((req_in_buf/(counts.kol + 1)))) , 15);
+          2: putpixel(round(counts.kol/(kolsum/560)) + 45, 440 - (round((counts.request/(counts.kolobr + 1)) * 50)) , 15);
       end;
 
     end;
@@ -71,7 +71,7 @@ implementation
       outtextxy(x - 45, y - 140 , 'Probability');
     end;
 
-  procedure graphik.SimulationInfo(tog:real; indbuf, ob:buff; kol, kotk, kolobr, req_in_buf ,graphTYPE:integer);
+  procedure graphik.SimulationInfo(tog:real; indbuf, ob:buff; kol, kotk, kolobr,  ,graphTYPE:integer);
     var
         wordn:STRING;
         alignment:integer;
@@ -116,15 +116,15 @@ implementation
         str(tog/kolobr:5:2, wordn);
         wordn:= 'average witing time: ' + wordn;
         outtextxy(400 , 60 + 2 * alignment , wordn);
-        {
-        str(req_in_buf/(kol div 100):5:2, wordn);
+{
+        str(counts.request/(kol div 100):5:2, wordn);
         wordn:= 'average req in buff: ' + wordn;
         outtextxy(400 , 60 + 3 * alignment , wordn);
 
         str((kotk/kol) * 100:7:2, wordn);
         wordn:= 'rej. probability:    ' + wordn + '%';
         outtextxy(400 , 60 + 4 * alignment , wordn);
-        }
+}
 
       end;
 

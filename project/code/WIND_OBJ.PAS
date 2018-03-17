@@ -138,10 +138,8 @@ implementation
         if j <> #8 then begin
           PointingDot(4, flag, j);
           i:= 0;
-
           if j = #13 then begin
             if (flag = 0) or (flag = 1) or (flag = 2) then begin
-
               repeat
                 bt:= readkey;
                 if bt <> #13 then begin
@@ -162,19 +160,16 @@ implementation
                     val(ko, kolsum, n);
                   end;
                 end;
-
               until (bt = #13);
-
-
-
-
               ClearViewPort;
               goto start;
             end;
-            tick:= flag;{MIGHT BE A MISTAKE... 123 is unic idetiyty cide fof each setting}
-
+            if (flag = 3) then begin
+              tick:= 1;{MIGHT BE A MISTAKE... 123 is unic idetiyty cide fof each setting}
+              ClearViewPort;
+              goto start;
+            end;
           end;
-
         end;
       until (j = #8);
     end;

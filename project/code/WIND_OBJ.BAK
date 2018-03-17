@@ -138,10 +138,8 @@ implementation
         if j <> #8 then begin
           PointingDot(4, flag, j);
           i:= 0;
-
           if j = #13 then begin
             if (flag = 0) or (flag = 1) or (flag = 2) then begin
-
               repeat
                 bt:= readkey;
                 if bt <> #13 then begin
@@ -162,19 +160,17 @@ implementation
                     val(ko, kolsum, n);
                   end;
                 end;
-
               until (bt = #13);
-
-
-
-
               ClearViewPort;
               goto start;
             end;
-            tick:= flag;{MIGHT BE A MISTAKE... 123 is unic idetiyty cide fof each setting}
-
+            if (flag = 4) then begin
+              tick:= 1;{MIGHT BE A MISTAKE... 123 is unic idetiyty cide fof each setting}
+              tick:= 1;
+              ClearViewPort;
+              goto start;
+            end;
           end;
-
         end;
       until (j = #8);
     end;
@@ -251,10 +247,16 @@ implementation
         read(input, counts);
       end;
 
+      SetColor(15);
+
       res:= 0;
       res1:= 0;
       repeat
-        outtextXY(45, 45, 'Choose');
+        settextstyle(2, horizDir, 5);
+        SetColor(0);
+        outtextXY(400, 45, 'Press <- or -> to choose choose');
+        SetColor(15);
+        outtextXY(400, 45, 'Press TAB to choose choose');
         tab:= readkey;
         if tab = #9 then begin
           res1:= res1 + 1;
@@ -264,11 +266,15 @@ implementation
           res1:= 0;
         end;
 
-        if  tab <> #8 thrn begin
+        if  tab <> #8 then begin
           ClearViewPort;
             case res1 of
               0: begin
-
+                      SetColor(15);
+                      settextstyle(6, horizDir, 3);
+                      outtextXY(45, 45, 'Rejections');
+                      settextstyle(2, horizDir, 5);
+                      outtextXY(400, 45, 'Press <- or -> to choose choose');
                       {P all}
                       axe.coordinates(45, 440, 'numUP');
                       SetColor(15);
@@ -305,6 +311,11 @@ implementation
 
                         if (bt = #77) or (bt = #75) then begin
                           ClearViewPort;
+                          SetColor(15);
+                          settextstyle(6, horizDir, 3);
+                          outtextXY(45, 45, 'Rejections');
+                          settextstyle(2, horizDir, 5);
+                          outtextXY(400, 45, 'Press <- or -> to choose choose');
                           axe.coordinates(45, 440, 'numUP');
                           case res of
                               0: begin
@@ -364,6 +375,11 @@ implementation
                       until (bt = #9);
                    end;
               1: begin
+                      SetColor(15);
+                      settextstyle(6, horizDir, 3);
+                      outtextXY(45, 45, 'Witing time');
+                      settextstyle(2, horizDir, 5);
+                      outtextXY(400, 45, 'Press <- or -> to choose choose');
                       {P all}
                       axe.coordinates(45, 440, 'numUP');
                       SetColor(15);
@@ -400,6 +416,12 @@ implementation
 
                          if (bt = #77) or (bt = #75) then begin
                            ClearViewPort;
+                           SetColor(15);
+                           settextstyle(6, horizDir, 3);
+                           outtextXY(45, 45, 'Rejections');
+                           settextstyle(2, horizDir, 5);
+                           outtextXY(400, 45, 'Press <- or -> to choose choose');
+
                            axe.coordinates(45, 440, 'numUP');
                            case res of
                                0: begin

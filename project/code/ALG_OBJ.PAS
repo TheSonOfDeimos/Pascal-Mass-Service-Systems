@@ -8,11 +8,44 @@ interface
   TYPE
     alg = object
       constructor init;
+      procedure zerro(var counts, counts1, counts2:count; var elem1, elem2:call; var kolprev:INTEGER; var tosv:real);
       procedure buff_create(var head:buff; var tail:buff);
       procedure main(lambdaO:real; kolsum, flag2, zeroing, dynamORconst:INTEGER);
     end;
 
 implementation
+  procedure alg.zerro(var counts, counts1, counts2:count; var elem1, elem2:call; var kolprev:INTEGER; var tosv:real);
+    begin
+      elem1.tpost:= 0;
+      elem2.tpost:= 0;
+      elem1.nmin:= 1;
+      elem2.nmin:= 2;
+
+      kolprev:= 0;
+      tosv:= 0;
+
+      {ALL}
+      counts.kol:= 0;
+      counts.kolobr:= 0;
+      counts.kotk:= 0;
+      counts.tog:= 0;
+      counts.request:= 0;
+
+      {1 CALL}
+      counts1.kol:= 0;
+      counts1.kolobr:= 0;
+      counts1.kotk:= 0;
+      counts1.tog:= 0;
+      counts1.request:= 0;
+
+      {2 CALL}
+      counts2.kol:= 0;
+      counts2.kolobr:= 0;
+      counts2.kotk:= 0;
+      counts2.tog:= 0;
+      counts2.request:= 0;
+
+    end;
 
   procedure alg.buff_create(var head:buff; var tail:buff);
             var
@@ -54,105 +87,52 @@ implementation
         typedoutp: file of count;
     begin
 
+      zerro(counts, counts1, counts2, elem1, elem2, kolprev, tosv);
       buff_create(head, tail);
-      elem1.tpost:= 0;
-      elem2.tpost:= 0;
-      elem1.nmin:= 1;
-      elem2.nmin:= 2;
       indbuf:= tail;
-      req_in_buf:= 0;
-
-      kolprev:= 0;
-      tosv:= 0;
-
-      {ALL}
-      counts.kol:= 0;
-      counts.kolobr:= 0;
-      counts.kotk:= 0;
-      counts.tog:= 0;
-
-      {1 CALL}
-      counts1.kol:= 0;
-      counts1.kolobr:= 0;
-      counts1.kotk:= 0;
-      counts1.tog:= 0;
-
-      {2 CALL}
-      counts2.kol:= 0;
-      counts2.kolobr:= 0;
-      counts2.kotk:= 0;
-      counts2.tog:= 0;
 
       if lambdao = 0 then
          lambdao:= 1;
 
       assign(typedoutp, 'typedoutp.txt');
-      assign(output, 'output.txt');
       rewrite(typedoutp);
-      rewrite(output);
 
       gr.coordinates(45, 440, 'numUP'); {Draw axes}
+      for i:= 1 to 21 do begin
 
-      {algorithm}
-      {while lambdao <= 3 do begin}
-
-        while counts.kol <> kolsum do begin
-
-            if kolprevious <> counts.kol then begin
-
-
-
-               if (counts.kol mod (kolsum div 21) = 0) and (counts.kol <> 0)then begin
-
-                  write(typedoutp, counts, counts1, counts2);
-
-                  WriteLn(output, 'Lambda:  ', lambdao:5:1);
-                  writeln(output, 'c0:  ', counts.kol:5, counts.kolobr:5, counts.kotk:5, '  ',
-                                  (counts.kotk/(counts.kol + 1) * 100):5:3, '  ', counts.tog:5:3);
-                  writeln(output, 'c1:  ', counts1.kol:5, counts1.kolobr:5, counts1.kotk:5, '  ',
-                                  (counts1.kotk/(counts1.kol + 1) * 100):5:3, '  ', counts1.tog:5:3);
-                  writeln(output, 'c2:  ', counts2.kol:5, counts2.kolobr:5, counts2.kotk:5, '  ',
-                                  (counts2.kotk/(counts2.kol + 1)  * 100):5:3, '  ', counts2.tog:5:3);
-                  WriteLn(output, '');
-                  WriteLn(output, '');
-               end;
-
-               if (dynamORconst = 1) and (counts.kol mod (kolsum div 21) = 0) and (counts.kol <> 0) then begin
-                 lambdao:= lambdaO + 0.1;
-               end;
-
-               kolprevious:= counts.kol;
-            end;
-
-            bos.main(elem1, elem2, kolprev, req_in_buf, tosv, lambdao, indbuf, tail, ob, counts, counts1, counts2);
-            {what graph to draw?}
-            gr.DrawPoint(counts, kolsum, req_in_buf, flag2);
-
-
+        while counts.kol <> kolsum * i do begin
+          bos.main(elem1, elem2, kolprev, tosv, lambdaO, indbuf, tail, ob, counts, counts1, counts2);
+          gr.DrawPoint(counts, kolsum * 21, flag2);
 
         end;
+
+        write(typedoutp, counts, counts1, counts2);
+
+        if dynamORconst = 1 then begin
+          lambdaO:= lambdaO + 0.1;
+        end;
+
+        if zeroing = 1 then begin
+          dispose(head);
+          Dispose(tail);
+          zerro(counts, counts1, counts2, elem1, elem2, kolprev, tosv);
+          buff_create(head, tail);
+          indbuf:= tail;
+        end;
+      end;
+
+
       close(typedoutp);
       if counts.kolobr = 0 then
          counts.kolobr:= 1;
 
       {cout results}
       case flag2 of
-        0: gr.simulationINFO(counts.tog, indbuf, ob, counts.kol , counts.kotk, counts.kolobr , req_in_buf, 0);
-        1: gr.simulationINFO(counts.tog, indbuf, ob, counts.kol , counts.kotk, counts.kolobr , req_in_buf, 1);
-        2: gr.simulationINFO(counts.tog, indbuf, ob, counts.kol , counts.kotk, counts.kolobr , req_in_buf, 2);
+        0: gr.simulationINFO(counts.tog, indbuf, ob, counts.kol , counts.kotk, counts.kolobr , 0);
+        1: gr.simulationINFO(counts.tog, indbuf, ob, counts.kol , counts.kotk, counts.kolobr , 1);
+        2: gr.simulationINFO(counts.tog, indbuf, ob, counts.kol , counts.kotk, counts.kolobr , 2);
       end;
 
-      close(output);
-
-      dispose(head);
-      Dispose(tail);
-
-      elem1.tpost:= 0;
-      elem2.tpost:= 0;
-      elem1.nmin:= 1;
-      elem2.nmin:= 2;
-      indbuf:= tail;
-      req_in_buf:= 0;
 
       j:= readkey;
     end;

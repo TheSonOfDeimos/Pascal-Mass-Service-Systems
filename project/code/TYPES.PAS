@@ -18,7 +18,7 @@ type BUFF = ^list;
      end;
 
      count = record
-          kol, kolobr, kotk:INTEGER;
+          kol, kolobr, kotk, request:INTEGER;
           tog:REAL;
      end;
 

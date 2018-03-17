@@ -1,4 +1,4 @@
-USES
+  USES
   crt, graph, tpko_obj, GUI_obj, wind_obj;
 
   VAR
@@ -16,8 +16,9 @@ USES
     x:= 10;
     y:= 475;
     dynamorconst:= 1;
-    kolsum:= 30000;
+    kolsum:= 1000;
     lambdao:= 1;
+    zeroing:= 0;
     inter.Menu(zeroing, dynamORconst, mode1, kolsum, lambdao);
    {
 

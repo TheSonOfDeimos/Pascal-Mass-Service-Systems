@@ -7,7 +7,7 @@ type
   	constructor init;
 	  procedure bas12(var elem:call; var counts, counts1, counts2:count; var indbuf:buff);
 	  procedure bas3(var elem:call; var tosv, lambdaO:real; var counts, counts1, counts2:count; var nombuf, indbuf, ob:buff);
-    procedure main(var elem1, elem2:call; var  kolprev:INTEGER; var req_in_buf:LONGINT; var tosv:real; lambdaO:real;
+    procedure main(var elem1, elem2:call; var  kolprev:INTEGER; var tosv:real; lambdaO:real;
               var indbuf, tail, ob:buff; var counts, counts1, counts2:count);
 
   end;
@@ -38,7 +38,7 @@ implementation
   			        bm3.main(nombuf, tosv, lambdaO, counts, counts1, counts2, ob, indbuf);
             end;
 
-  procedure boss.main(var elem1, elem2:call; var  kolprev:INTEGER; var req_in_buf:LONGINT; var tosv:real; lambdaO:real;
+  procedure boss.main(var elem1, elem2:call; var  kolprev:INTEGER; var tosv:real; lambdaO:real;
             var indbuf, tail, ob:buff; var counts, counts1, counts2:count);
   	var
   		elem:call;
@@ -63,7 +63,7 @@ implementation
   			bas12(elem, counts, counts1, counts2, indbuf);
 
       if counts.kolobr <> kolprev then begin
-        req_in_buf:= req_in_buf + indbuf^.bufp;
+        counts.request:= counts.request + indbuf^.bufp;
         kolprev:= counts.kolobr;
       end;
 
