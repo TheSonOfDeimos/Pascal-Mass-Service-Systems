@@ -8,19 +8,15 @@ interface
   TYPE
     alg = object
       constructor init;
-      procedure zerro(var counts, counts1, counts2:count; var elem1, elem2:call; var kolprev:INTEGER; var tosv:real);
+      procedure zerro(var counts, counts1, counts2:count;  var kolprev:INTEGER; var tosv:real);
       procedure buff_create(var head:buff; var tail:buff);
+      procedure alg.simulateZERO(lambdaO:real; kmin, mode, flag2:INTEGER);
       procedure main(lambdaO:real; kolsum, flag2, zeroing, dynamORconst:INTEGER);
     end;
 
 implementation
-  procedure alg.zerro(var counts, counts1, counts2:count; var elem1, elem2:call; var kolprev:INTEGER; var tosv:real);
+  procedure alg.zerro(var counts, counts1, counts2:count; var kolprev:INTEGER; var tosv:real);
     begin
-      elem1.tpost:= 0;
-      elem2.tpost:= 0;
-      elem1.nmin:= 1;
-      elem2.nmin:= 2;
-
       kolprev:= 0;
       tosv:= 0;
 
@@ -71,6 +67,68 @@ implementation
                end;
                tail:= x;
             end;
+
+  procedure alg.simulateZERO(lambdaO:real; kmin, mode, flag2:INTEGER);
+    var
+      {my types}
+      counts, counts1, counts2 : count;
+      output_t : file of count;
+      head, tail, indbuf, ob : buff;
+      elem1, elem2 : call;
+      {deafolt types}
+      i , kolprev, ORDENATE, prevVAL: INTEGER;
+      tosv : real;
+      bot : STRING;
+      {objects types}
+      gr : graphik;
+      bos : boss;
+
+    begin
+      assign(output_t, 'typedoutp.txt');
+      rewrite(output_t);
+      gr.coordinates();
+      {implementation}
+      buff_create(head, tail);
+      indbuf:= tail;
+      elem1.nmin:= 1;
+      elem2.nmin:= 2;
+      elem1.tpost:= 0;
+      elem2.tpost:= 0;
+
+      for i:= 0 to 20 do begin
+        while counts.kol <> kmin do begin
+          bos.main(elem1, elem2, kolprev, tosv, lambdaO, indbuf, tail, ob, counts, counts1, counts2);
+
+          {conditions}
+          if counts.kal <> prevVAl then begin
+            if (counts.kol mod round((kmin / 560) * 21)) and (mode = 2)then begin
+              ORDENATE:= ORDENATE + 1;
+            end;
+            if (counts.kol mod round(kmin / 560)) and (mode = 0)then begin
+              ORDENATE:= ORDENATE + 1;
+            end;
+            prevVAL:= counts.kal;
+          end;
+
+          gr.DrawPointZERO(counts, counts1, counts2, ORDENATE, mode, flag2);
+
+        end;
+
+        {output}
+        write(output_t, counts, counts1, counts2);
+        if mode = 0 then begin
+          bot:= readkey;
+        end;
+        {zerroing}
+        zerro(counts, counts1, counts2, kolprev, tosv);
+        {incremetation}
+        lambdao:= lambdaO + 0.1;
+        end;
+      end;
+      
+      close(output_t);
+      bot:= readkey;
+    end;
 
   procedure alg.main(lambdaO:real; kolsum, flag2, zeroing, dynamORconst:INTEGER);
     var

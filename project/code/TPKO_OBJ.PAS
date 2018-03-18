@@ -10,10 +10,35 @@ TYPE
     constructor init;
     procedure coordinates(x,y:integer; func:string);
     procedure DrawPoint(counts:count; kolsum:INTEGER;  flag2:INTEGER);
+    procedure graphik.DrawPointZERO(counts:count; ORDENATE, mode, flag2:INTEGER);
     procedure SimulationInfo(tog:real; indbuf, ob:buff; kol, kotk, kolobr, graphTYPE:integer);
   end;
 
 implementation
+  procedure graphik.DrawPointZERO(counts:count; ORDENATE, mode, flag2:INTEGER);
+    begin
+      case mode of
+        0:
+          case flag2 of
+          0:
+            putpixel(ORDENATE + 45, 440 - (round((counts.kotk / (counts.kol + 1)) * 200)) , 15);
+          1:
+            putpixel(ORDENATE + 45, 440 - (round((counts.tog / (counts.kolobr + 1)) * 12)) , 15);
+          2:
+            putpixel(ORDENATE + 45, 440 - (round((counts.request/(counts.kolobr + 1))* 50)) , 15);
+          end;
+        1:
+        2:
+          case flag2 of
+            0:
+              putpixel(ORDENATE + 45, 440 - (round((counts.kotk / (counts.kol + 1)) * 200)) , 15);
+            1:
+              putpixel(ORDENATE + 45, 440 - (round((counts.tog / (counts.kolobr + 1)) * 12)) , 15);
+            2:
+              putpixel(ORDENATE + 45, 440 - (round((counts.request/(counts.kolobr + 1))* 50)) , 15);
+          end;
+      end;
+    end;
 
   procedure graphik.DrawPoint(counts:count; kolsum:INTEGER; flag2:INTEGER);
     begin
