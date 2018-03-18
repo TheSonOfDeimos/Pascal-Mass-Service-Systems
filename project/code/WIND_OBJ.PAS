@@ -165,7 +165,9 @@ implementation
               goto start;
             end;
             if (flag = 3) then begin
-              tick:= 1;{MIGHT BE A MISTAKE... 123 is unic idetiyty cide fof each setting}
+              tick:= (tick + 1) mod 2;
+
+{MIGHT BE A MISTAKE... 123 is unic idetiyty cide fof each setting}
               ClearViewPort;
               goto start;
             end;

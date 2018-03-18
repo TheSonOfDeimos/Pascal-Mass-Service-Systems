@@ -79,7 +79,7 @@ implementation
         head, tail, indbuf, ob:buff;
         elem1, elem2:call;
         counts, counts1, counts2:count;
-        kolprev, kolprevious, i, save : integer;
+        kolprev, kolprevious, i, save, b: integer;
         req_in_buf:LONGINT;
         tosv: real;
         j:STRING;
@@ -100,11 +100,26 @@ implementation
       gr.coordinates(45, 440, 'numUP'); {Draw axes}
       for i:= 1 to 21 do begin
 
-        while counts.kol <> kolsum * i do begin
-          bos.main(elem1, elem2, kolprev, tosv, lambdaO, indbuf, tail, ob, counts, counts1, counts2);
-          gr.DrawPoint(counts, kolsum * 21, flag2);
+        if zeroing = 0 then begin
+          while counts.kol <> kolsum * i do begin
+            bos.main(elem1, elem2, kolprev, tosv, lambdaO, indbuf, tail, ob, counts, counts1, counts2);
+            gr.DrawPoint(counts, kolsum * 21, flag2);
+          end;
+        end;
+
+        if zeroing = 1 then begin
+          ClearViewPort;
+          gr.coordinates(45, 440, 'numUP'); {Draw axes}
+          for b:= 1 to 21 do begin
+            while counts.kol <> kolsum * b do begin
+              bos.main(elem1, elem2, kolprev, tosv, lambdaO, indbuf, tail, ob, counts, counts1, counts2);
+              gr.DrawPoint(counts, kolsum * 21, flag2);
+            end;
+          end;
 
         end;
+
+
 
         write(typedoutp, counts, counts1, counts2);
 

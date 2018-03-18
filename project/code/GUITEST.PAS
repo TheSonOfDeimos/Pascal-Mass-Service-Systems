@@ -15,10 +15,10 @@
     initgraph(g, h, '');
     x:= 10;
     y:= 475;
-    dynamorconst:= 0;
-    kolsum:= 1000;
+    dynamorconst:= 1;
+    kolsum:= 1500;
     lambdao:= 1;
-    zeroing:= 0;
+    zeroing:= 1;
     inter.Menu(zeroing, dynamORconst, mode1, kolsum, lambdao);
    {
 

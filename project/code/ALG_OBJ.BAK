@@ -79,7 +79,7 @@ implementation
         head, tail, indbuf, ob:buff;
         elem1, elem2:call;
         counts, counts1, counts2:count;
-        kolprev, kolprevious, i, save savekol: integer;
+        kolprev, kolprevious, i, save, b: integer;
         req_in_buf:LONGINT;
         tosv: real;
         j:STRING;
@@ -98,17 +98,31 @@ implementation
       rewrite(typedoutp);
 
       gr.coordinates(45, 440, 'numUP'); {Draw axes}
+      for i:= 1 to 21 do begin
 
-      for i:= 0 to dynamORconst * 20 do begin
-
-        while savekol <> kolsum do begin
-          bos.main(elem1, elem2, kolprev, tosv, lambdaO, indbuf, tail, ob, counts, counts1, counts2);
-          gr.DrawPoint(counts, kolsum, flag2);
-          savekol:= counts.kol
+        if zeroing = 0 then begin
+          while counts.kol <> kolsum * i do begin
+            bos.main(elem1, elem2, kolprev, tosv, lambdaO, indbuf, tail, ob, counts, counts1, counts2);
+            gr.DrawPoint(counts, kolsum * 21, flag2);
+          end;
         end;
 
+        if zeroing = 1 then begin
+          ClearViewPort
+          gr.coordinates(45, 440, 'numUP'); {Draw axes}
+          for b:= 1 to 21 do begin
+            while counts.kol <> kolsum * b do begin
+              bos.main(elem1, elem2, kolprev, tosv, lambdaO, indbuf, tail, ob, counts, counts1, counts2);
+              gr.DrawPoint(counts, kolsum * 21, flag2);
+            end;
+          end;
+
+        end;
+
+
+
         write(typedoutp, counts, counts1, counts2);
-        savekol:= 0;
+
         if dynamORconst = 1 then begin
           lambdaO:= lambdaO + 0.1;
         end;
