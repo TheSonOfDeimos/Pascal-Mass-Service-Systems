@@ -7,7 +7,7 @@ type
   	constructor init;
 	  procedure bas12(var elem:call; var counts, counts1, counts2:count; var indbuf:buff);
 	  procedure bas3(var elem:call; var tosv, lambdaO:real; var counts, counts1, counts2:count; var nombuf, indbuf, ob:buff);
-    procedure main(var elem1, elem2:call; var  kolprev, req_in_buf:integer; var tosv:real; lambdaO:real;
+    procedure main(var elem1, elem2:call; var  kolprev:INTEGER; var tosv:real; lambdaO:real;
               var indbuf, tail, ob:buff; var counts, counts1, counts2:count);
 
   end;
@@ -31,21 +31,21 @@ implementation
           var
              bm4	: bms4;
   	         bm3	: bms3;
-            begin
+          begin
             	if indbuf^.bufn = 0 then
             		bm4.main(elem, tosv, lambdaO, counts, counts1, counts2)
             	else
   			        bm3.main(nombuf, tosv, lambdaO, counts, counts1, counts2, ob, indbuf);
             end;
 
-  procedure boss.main(var elem1, elem2:call; var  kolprev, req_in_buf:integer; var tosv:real; lambdaO:real;
+  procedure boss.main(var elem1, elem2:call; var  kolprev:INTEGER; var tosv:real; lambdaO:real;
             var indbuf, tail, ob:buff; var counts, counts1, counts2:count);
   	var
   		elem:call;
   		nombuf:buff;
 
   	begin
-
+      randomaze;
 
   		if elem1.tpost < elem2.tpost then begin
   			 elem.tpost:= elem1.tpost;
@@ -62,9 +62,10 @@ implementation
   		else
   			bas12(elem, counts, counts1, counts2, indbuf);
 
-
-        req_in_buf:= req_in_buf + indbuf^.bufp;
-
+      if counts.kolobr <> kolprev then begin
+        counts.request:= counts.request + indbuf^.bufp;
+        kolprev:= counts.kolobr;
+      end;
 
 
       if elem.nmin = 1 then begin

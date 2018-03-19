@@ -64,7 +64,7 @@ implementation
 
   	begin
 
-  		randomize;
+  		
   		r1:= random;
   		r2:= random;
     	tayob:= -1 / lambdao * ln(r1 * r2);

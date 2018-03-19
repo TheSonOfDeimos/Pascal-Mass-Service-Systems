@@ -31,7 +31,7 @@ implementation
           var
              bm4	: bms4;
   	         bm3	: bms3;
-            begin
+          begin
             	if indbuf^.bufn = 0 then
             		bm4.main(elem, tosv, lambdaO, counts, counts1, counts2)
             	else
@@ -45,7 +45,7 @@ implementation
   		nombuf:buff;
 
   	begin
-
+      
 
   		if elem1.tpost < elem2.tpost then begin
   			 elem.tpost:= elem1.tpost;

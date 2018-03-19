@@ -29,7 +29,7 @@ implementation
 
          begin
 
-              randomize;
+              
               if elem.nmin = 1 then begin
                 r:= random;
                 tay:= -1 / 2 * ln(r);

@@ -111,7 +111,7 @@ implementation
             end;
             prevVAL:= counts.kol;
           end;
-
+          
           gr.DrawPointZERO(counts, ORDENATE, mode, flag2);
 
         end;

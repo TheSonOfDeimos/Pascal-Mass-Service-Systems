@@ -8,7 +8,7 @@ interface
   TYPE
     alg = object
       constructor init;
-      procedure zerro(var counts, counts1, counts2:count;  var kolprev:INTEGER; var tosv:real);
+      procedure zerro(var counts, counts1, counts2:count;  var kolprev:INTEGER);
       procedure buff_create(var head:buff; var tail:buff);
       procedure simulateZERO(lambdaO:real; kmin, dynamORconst, mode, flag2:INTEGER);
       procedure simulateNOTZERO(lambdaO:real; kmin, dynamORconst, mode, flag2:INTEGER);
@@ -16,10 +16,9 @@ interface
     end;
 
 implementation
-  procedure alg.zerro(var counts, counts1, counts2:count; var kolprev:INTEGER; var tosv:real);
+  procedure alg.zerro(var counts, counts1, counts2:count; var kolprev:INTEGER);
     begin
       kolprev:= 0;
-      tosv:= 0;
 
       {ALL}
       counts.kol:= 0;
@@ -96,7 +95,8 @@ implementation
       elem1.tpost:= 0;
       elem2.tpost:= 0;
       ORDENATE:= 0;
-      zerro(counts, counts1, counts2, kolprev, tosvs);
+      zerro(counts, counts1, counts2, kolprev);
+      tosv:= 0;
       for i:= 0 to 20 do begin
         while counts.kol <> kmin do begin
           bos.main(elem1, elem2, kolprev, tosv, lambdaO, indbuf, tail, ob, counts, counts1, counts2);
@@ -108,21 +108,25 @@ implementation
             end;
             if (counts.kol mod round(kmin / 560) = 0) and (mode = 0)then begin
               ORDENATE:= ORDENATE + 1;
+                gr.DrawPointZERO(counts, ORDENATE, mode, flag2);
             end;
             prevVAL:= counts.kol;
           end;
+          if counts.kol  then begin
 
-          gr.DrawPointZERO(counts, ORDENATE, mode, flag2);
+          end;
+
 
         end;
 
-        {output}
         write(output_t, counts, counts1, counts2);
         if mode = 0 then begin
+          ORDENATE:= 0;
           bot:= readkey;
+          ClearViewPort;
         end;
         {zerroing}
-        zerro(counts, counts1, counts2, kolprev, tosv);
+        zerro(counts, counts1, counts2, kolprev);
         {incremetation}
         if dynamORconst = 1 then begin
           lambdao:= lambdaO + 0.1;
@@ -161,9 +165,11 @@ implementation
         elem2.nmin:= 2;
         elem1.tpost:= 0;
         elem2.tpost:= 0;
-
+        ORDENATE:= 0;
+        zerro(counts, counts1, counts2, kolprev);
+        tosv:= 0;
         for i:= 0 to 20 do begin
-          while counts.kol <> kmin do begin
+          while counts.kol <> kmin * (i + 1) do begin
             bos.main(elem1, elem2, kolprev, tosv, lambdaO, indbuf, tail, ob, counts, counts1, counts2);
 
             {conditions}
@@ -185,6 +191,8 @@ implementation
           write(output_t, counts, counts1, counts2);
           if mode = 0 then begin
             bot:= readkey;
+            ORDENATE:= 0;
+            ClearViewPort;
           end;
           {zerroing}
 

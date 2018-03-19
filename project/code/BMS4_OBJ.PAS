@@ -18,7 +18,7 @@ implementation
         		tayob:real ;
   	begin
 
-  		randomize;
+  	
   		r1:= random;
   		r2:= random;
   		tayob:= - 1 / lambdaO * ln(r1 * r2);
@@ -31,7 +31,7 @@ implementation
                 tay:real;
 
            begin
-             randomize;
+
              if elem.nmin = 1 then begin
                r:= random;
                tay:= -1 / 2 * ln(r);
