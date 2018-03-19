@@ -167,7 +167,7 @@ implementation
             if (flag = 3) then begin
               tick:= (tick + 1) mod 2;
 
-{MIGHT BE A MISTAKE... 123 is unic idetiyty cide fof each setting}
+                {MIGHT BE A MISTAKE... 123 is unic idetiyty cide fof each setting}
               ClearViewPort;
               goto start;
             end;
@@ -499,7 +499,7 @@ implementation
     begin
       case flag of
         0: begin
-            simulating.main(lambdao, kolsum, flag2, zeroing, dynamORconst)
+            simulating.main(lambdao, kolsum, dynamORconst, zeroing, flag2, mode1);
            end;
 
         1: begin

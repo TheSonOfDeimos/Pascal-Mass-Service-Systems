@@ -10,7 +10,7 @@ TYPE
     constructor init;
     procedure coordinates(x,y:integer; func:string);
     procedure DrawPoint(counts:count; kolsum:INTEGER;  flag2:INTEGER);
-    procedure graphik.DrawPointZERO(counts:count; ORDENATE, mode, flag2:INTEGER);
+    procedure DrawPointZERO(counts:count; ORDENATE, mode, flag2:INTEGER);
     procedure SimulationInfo(tog:real; indbuf, ob:buff; kol, kotk, kolobr, graphTYPE:integer);
   end;
 
@@ -27,7 +27,7 @@ implementation
           2:
             putpixel(ORDENATE + 45, 440 - (round((counts.request/(counts.kolobr + 1))* 50)) , 15);
           end;
-        1:
+        1:;
         2:
           case flag2 of
             0:

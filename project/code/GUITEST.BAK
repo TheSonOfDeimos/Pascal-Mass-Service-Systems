@@ -1,4 +1,5 @@
   USES
+
   crt, graph, tpko_obj, GUI_obj, wind_obj;
 
   VAR
@@ -15,10 +16,11 @@
     initgraph(g, h, '');
     x:= 10;
     y:= 475;
-    dynamorconst:= 0;
+    dynamorconst:= 1;
     kolsum:= 1000;
     lambdao:= 1;
     zeroing:= 0;
+    mode1:= 2;
     inter.Menu(zeroing, dynamORconst, mode1, kolsum, lambdao);
    {
 
