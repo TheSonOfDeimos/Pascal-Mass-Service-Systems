@@ -17,15 +17,12 @@
     x:= 10;
     y:= 475;
     dynamorconst:= 1;
-    kolsum:= 2000;
+    kolsum:= 1500;
     lambdao:= 1;
-    zeroing:= 1;
+    zeroing:= 0;
     mode1:= 2;
     inter.Menu(zeroing, dynamORconst, mode1, kolsum, lambdao);
-   {
 
-    wind.values(i,j);
-    }
 
 
 

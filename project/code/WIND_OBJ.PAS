@@ -231,7 +231,7 @@ implementation
       reset(input);
 
       {P all}
-      axe.coordinates(45, 440, 'numUP');
+      axe.coordinates1(45, 440, 'numUP');
       SetColor(15);
       setfillstyle(solidfill, 15);
       seek(input, 0);
@@ -277,7 +277,7 @@ implementation
                       settextstyle(2, horizDir, 5);
                       outtextXY(400, 45, 'Press <- or -> to choose choose');
                       {P all}
-                      axe.coordinates(45, 440, 'numUP');
+                      axe.coordinates1(45, 440, 'numUP');
                       SetColor(15);
                       setfillstyle(solidfill, 15);
                       seek(input, 0);
@@ -317,7 +317,7 @@ implementation
                           outtextXY(45, 45, 'Rejections');
                           settextstyle(2, horizDir, 5);
                           outtextXY(400, 45, 'Press <- or -> to choose choose');
-                          axe.coordinates(45, 440, 'numUP');
+                          axe.coordinates1(45, 440, 'numUP');
                           case res of
                               0: begin
                                     {P all}
@@ -382,7 +382,7 @@ implementation
                       settextstyle(2, horizDir, 5);
                       outtextXY(400, 45, 'Press <- or -> to choose choose');
                       {P all}
-                      axe.coordinates(45, 440, 'numUP');
+                      axe.coordinates1(45, 440, 'numUP');
                       SetColor(15);
                       setfillstyle(solidfill, 15);
                       seek(input, 0);
@@ -423,7 +423,7 @@ implementation
                            settextstyle(2, horizDir, 5);
                            outtextXY(400, 45, 'Press <- or -> to choose choose');
 
-                           axe.coordinates(45, 440, 'numUP');
+                           axe.coordinates1(45, 440, 'numUP');
                            case res of
                                0: begin
                                      {P all}

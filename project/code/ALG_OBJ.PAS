@@ -86,7 +86,7 @@ implementation
     begin
       assign(output_t, 'typedoutp.txt');
       rewrite(output_t);
-     { gr.coordinates();  }
+
       {implementation}
       buff_create(head, tail);
       indbuf:= tail;
@@ -98,6 +98,12 @@ implementation
       zerro(counts, counts1, counts2, kolprev);
       tosv:= 0;
       for i:= 0 to 20 do begin
+
+        {coords}
+        if mode <> 1 then begin
+          gr.coordinates(45, 440, lambdaO, kmin, counts, dynamORconst, mode, flag2);
+        end;
+
         while counts.kol <> kmin do begin
           bos.main(elem1, elem2, kolprev, tosv, lambdaO, indbuf, tail, ob, counts, counts1, counts2);
 
@@ -111,11 +117,9 @@ implementation
             end;
             prevVAL:= counts.kol;
           end;
-          
+
           gr.DrawPointZERO(counts, ORDENATE, mode, flag2);
-
         end;
-
         write(output_t, counts, counts1, counts2);
         if mode = 0 then begin
           ORDENATE:= 0;
@@ -154,7 +158,8 @@ implementation
       begin
         assign(output_t, 'typedoutp.txt');
         rewrite(output_t);
-      {  gr.coordinates();}
+
+
         {implementation}
         buff_create(head, tail);
         indbuf:= tail;
@@ -166,6 +171,12 @@ implementation
         zerro(counts, counts1, counts2, kolprev);
         tosv:= 0;
         for i:= 0 to 20 do begin
+
+          {coords}
+          if mode <> 1 then begin
+            gr.coordinates(45, 440, lambdaO, kmin, counts, dynamORconst, mode, flag2);
+          end;
+
           while counts.kol <> kmin * (i + 1) do begin
             bos.main(elem1, elem2, kolprev, tosv, lambdaO, indbuf, tail, ob, counts, counts1, counts2);
 
@@ -174,17 +185,17 @@ implementation
               if (counts.kol mod round((kmin / 560) * 21) = 0) and (mode = 2)then begin
                 ORDENATE:= ORDENATE + 1;
               end;
-              if (counts.kol mod round(kmin / 560) = 0) and (mode = 0)then begin
+              if (counts.kol mod round(kmin / 560) = 0) and (mode = 0) then begin
                 ORDENATE:= ORDENATE + 1;
               end;
               prevVAL:= counts.kol;
             end;
 
             gr.DrawPointZERO(counts, ORDENATE, mode, flag2);
-
           end;
 
           {output}
+
           write(output_t, counts, counts1, counts2);
           if mode = 0 then begin
             bot:= readkey;

@@ -8,7 +8,8 @@ uses
 TYPE
   graphik = object
     constructor init;
-    procedure coordinates(x,y:integer; func:string);
+    procedure coordinates1(x,y:integer; func:string);
+    procedure coordinates(x , y: INTEGER; lambdao:real; kmin:INTEGER; counts:count; dynamORconst, mode, flag2 :INTEGER);
     procedure DrawPoint(counts:count; kolsum:INTEGER;  flag2:INTEGER);
     procedure DrawPointZERO(counts:count; ORDENATE, mode, flag2:INTEGER);
     procedure SimulationInfo(tog:real; indbuf, ob:buff; kol, kotk, kolobr, graphTYPE:integer);
@@ -50,7 +51,86 @@ implementation
 
     end;
 
-  procedure graphik.coordinates(x,y:INTEGER; func:STRING);
+  procedure graphik.coordinates(x , y: INTEGER; lambdao:real; kmin:INTEGER; counts:count; dynamORconst, mode, flag2 :INTEGER);
+    var
+      incr, i:INTEGER;
+      num:string;
+    begin
+      settextstyle(smallfont, horizDir, 4);
+      SetColor(15);
+      {coordinates}
+      Line(x, y, x + 560, y);
+      Line(x, y, x , y - 210);
+      incr:= 0;
+      for i:= 0 to 9 do begin
+        incr:= incr + 20;
+        line(x + 1, y - incr, x - 1, y - incr);
+      end;
+      incr:= 0;
+      for i:= 0 to 19 do begin
+        incr:= incr + 28;
+        line(incr + x, y + 1, incr + x, y - 1);
+      end;
+
+      incr:= 0;
+      {OY param}
+      case flag2 of
+        0: {rejection}
+          for i:= 0 to 9 do begin
+            str(10 * (i + 1), num);
+            outtextxy(x - 20 , (y  - 20 * (i + 1)) - 5 , num);
+          end;
+        1: {Waiting time}
+          for i:= 0 to 9 do begin
+            str((i + 1), num);
+            outtextxy(x - 20 , (y  - 20 * (i + 1)) - 5, num);
+          end;
+        2: {request}
+          for i:= 0 to 9 do begin
+            str(0.4 * (i + 1 ):1:1, num);
+            outtextxy(x - 20 , (y  - 20 * (i + 1)) - 5, num);
+          end;
+        3: {all}
+          for i:= 0 to 9 do begin
+            str(10 * (i + 1 ), num);
+            outtextxy(x - 20 , (y  - 20 * (i + 1)) - 5, num);
+          end;
+      end;
+
+      {OX param}
+      incr:= 0;
+      case mode of
+        0: {steping}
+          begin
+            str(lambdaO:1:1, num);
+            outtextxy(45, 45, 'Lambda: ' + num);
+            for i:= 0 to 19 do begin
+              str(((kmin / 20) * (i + 1) ):4:0, num);
+              outtextxy((28 * (i + 1)) + 33 , y + 3, num);
+            end;
+          end;
+        1:; {ofline}
+        2: {all}
+          begin
+            if dynamORconst = 0 then begin
+              str(lambdaO:1:1, num);
+              outtextxy(45, 45, 'Lambda: ' + num);
+            end;
+            for i:= 0 to 19 do begin
+              if dynamORconst = 1 then begin
+                str(0.1 * (i + 11):1:1, num);
+              end;
+              if dynamORconst = 0 then begin
+                str(((kmin/10) * (i + 1)):4:0, num);
+              end;
+              outtextxy((28 * (i + 1)) + 33 , y + 3, num);
+            end;
+          end;
+
+      end;
+    end;
+
+  procedure graphik.coordinates1(x,y:INTEGER; func:STRING);
    var incr, i: integer;
        num: string;
        f:real;
@@ -91,7 +171,7 @@ implementation
 
       {names of axes}
       settextstyle(6, HorizDir,1);
-      outtextxy(270  - x, y + 15  , 'Lambda of Servise');
+      outtextxy(270  - x, y + 15  , 'Lambda of Serviсe');
       settextstyle(6, vertDir,1);
       outtextxy(x - 45, y - 140 , 'Probability');
     end;
@@ -141,7 +221,7 @@ implementation
         str(tog/kolobr:5:2, wordn);
         wordn:= 'average witing time: ' + wordn;
         outtextxy(400 , 60 + 2 * alignment , wordn);
-{
+        {
         str(counts.request/(kol div 100):5:2, wordn);
         wordn:= 'average req in buff: ' + wordn;
         outtextxy(400 , 60 + 3 * alignment , wordn);
@@ -149,9 +229,9 @@ implementation
         str((kotk/kol) * 100:7:2, wordn);
         wordn:= 'rej. probability:    ' + wordn + '%';
         outtextxy(400 , 60 + 4 * alignment , wordn);
-}
+      }
 
-      end;
+   end;
 
   constructor graphik.init;
               begin
