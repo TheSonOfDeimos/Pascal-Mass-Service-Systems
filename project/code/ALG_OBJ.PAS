@@ -121,22 +121,23 @@ implementation
           gr.DrawPointZERO(counts, ORDENATE, mode, flag2);
         end;
         write(output_t, counts, counts1, counts2);
-        if mode = 0 then begin
+        if (mode = 0) and (i < 20) then begin
           ORDENATE:= 0;
+          gr.SimulationInfo(counts, counts1, counts2, lambdao, flag2);
           bot:= readkey;
           ClearViewPort;
         end;
         {zerroing}
-        zerro(counts, counts1, counts2, kolprev);
+        if i < 20 then begin
+          zerro(counts, counts1, counts2, kolprev);
+        end;
         {incremetation}
         if dynamORconst = 1 then begin
           lambdao:= lambdaO + 0.1;
         end;
-
-        end;
-
-
+      end;
       close(output_t);
+      gr.SimulationInfo(counts, counts1, counts2, lambdao, flag2);
       bot:= readkey;
     end;
 
@@ -197,9 +198,10 @@ implementation
           {output}
 
           write(output_t, counts, counts1, counts2);
-          if mode = 0 then begin
-            bot:= readkey;
+          if (mode = 0) and (i < 20) then begin
             ORDENATE:= 0;
+            gr.SimulationInfo(counts, counts1, counts2, lambdao, flag2);
+            bot:= readkey;
             ClearViewPort;
           end;
           {zerroing}
@@ -211,12 +213,13 @@ implementation
 
 
         end;
-
         close(output_t);
+        gr.SimulationInfo(counts, counts1, counts2, lambdao, flag2);
         bot:= readkey;
     end;
 
   procedure alg.main(lambdao:REAL; kmin, dynamORconst, zeroing, flag2, mode:INTEGER);
+
     begin
       if zeroing = 1 then begin
         simulateZERO(lambdaO, kmin, dynamORconst, mode, flag2);
@@ -224,6 +227,7 @@ implementation
       if zeroing = 0 then begin
         simulateNOTZERO(lambdaO, kmin, dynamORconst, mode, flag2);
       end;
+
     end;
 
   constructor alg.init;

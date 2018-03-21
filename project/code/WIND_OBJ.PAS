@@ -96,10 +96,12 @@ implementation
     end;
 
   procedure windows.mode(var tick:INTEGER);
+    label start;
     var j:STRING;
         flag:INTEGER;
     begin
       flag:= -1;
+      start:
       drawbottom(0, 0, 0, ' MODE');
       drawbottom(1, 1, 0, 'STEPPING');
       drawbottom(2, 1, 0, 'OFFLINE');
@@ -110,7 +112,9 @@ implementation
         if j <> #8 then begin
           PointingDot(3, flag, j);
           if j = #13 then begin
-            tick:= flag;{MIGHT BE A MISTAKE... 123 is unic idetiyty cide fof each setting}
+            tick:= flag;
+            ClearViewPort;
+            goto start;{MIGHT BE A MISTAKE... 123 is unic idetiyty cide fof each setting}
           end;
         end;
       until (j = #8);
