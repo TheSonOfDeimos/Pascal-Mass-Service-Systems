@@ -286,11 +286,11 @@ implementation
         wordn:= 'total waiting time (2):  ' + wordn;
         outtextxy(430 , 60 + 3 * alignment , wordn);
 
-        str((counts2.tog/counts2.kolobr):5:2, wordn);
+        str((counts2.tog/(counts2.kolobr + 1)):5:2, wordn);
         wordn:= 'average witing time (2): ' + wordn;
         outtextxy(430 , 60 + 4 * alignment , wordn);
 
-        str((counts2.request/counts2.kolobr):5:2, wordn);
+        str((counts2.request/(counts2.kolobr + 1)):5:2, wordn);
         wordn:= 'average req in buff (2): ' + wordn;
         outtextxy(430 , 60 + 5 * alignment , wordn);
 

@@ -17,7 +17,7 @@
     x:= 10;
     y:= 475;
     dynamorconst:= 1;
-    kolsum:= 1500;
+    kolsum:= 2000;
     lambdao:= 1;
     zeroing:= 1;
     mode1:= 0;

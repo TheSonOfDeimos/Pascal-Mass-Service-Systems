@@ -204,12 +204,12 @@ implementation
       settextstyle(2, horizDir, 5);
       outtextxy(20, align - 30, 'Lambda' + step + 'P(all)' +'  '+ step + 'P(1)' +'  '+ step + 'P(2)' + step +
                 'WaiT(all)' + step + 'WaiT(1)' + step + 'WaiT(2)' + step +
-                'RqB(all)' + step + 'RqB(1)'+ step + 'RqB(2)');
+                'ReqB(all)' + step + 'ReqB(1)'+ step + 'ReqB(2)');
       settextstyle(2, horizDir, 5);
       while not eof(tpinput)  do begin
 
-        str(lambdaO:5:1, Lam); {LAmbda}
-        lam:= lam + ' ';
+        str(lambdaO:4:1, Lam); {LAmbda}
+        lam:= lam + '   '
         {all}
         read(tpinput, counts);
         str((100 * (counts.kotk/(counts.kol + 1))):2:2, save); {P}
@@ -224,22 +224,22 @@ implementation
         str((100 * (counts.kotk/(counts.kol + 1))):2:2, save); {P}
         P:= P + save + '%' + step;
         str((counts.tog/(counts.kolobr + 1)):3:2, save);{WaiT}
-        WaiT:=  WaiT +'   '+ save + step;
+        WaiT:=  WaiT + save + step;
         str((counts.request/(counts.kolobr + 1)):3:2, save);{ReqB}
-        ReqB:= ReqB +'   '+ save + step;
+        ReqB:= ReqB + save + step;
 
         {2}
         read(tpinput, counts);
         str((100 * (counts.kotk/(counts.kol + 1))):2:2, save); {P}
         P:= P + save + '%' + step;
         str((counts.tog/(counts.kolobr + 1)):3:2, save);{WaiT}
-        WaiT:=  WaiT +'   '+ save + step;
+        WaiT:=  WaiT + save + step;
         str((counts.request/(counts.kolobr + 1)):3:2, save);{ReqB}
-        ReqB:= ReqB +'  '+ save + step;
+        ReqB:= ReqB + save + step;
 
-        line:= lam + step + P + WaiT + '  ' + ReqB;
+        line:= lam + step + P + WaiT + ReqB;
         outtextxy(20, align, line);
-        align:= align + 15;
+        align:= align + 12;
         if dynamORconst = 1 then begin
           lambdaO:= lambdaO + 0.1;
         end;
