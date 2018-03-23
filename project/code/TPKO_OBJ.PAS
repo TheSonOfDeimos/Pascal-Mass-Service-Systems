@@ -24,9 +24,15 @@ implementation
           0:
             putpixel(ORDENATE + 45, 440 - (round((counts.kotk / (counts.kol + 1)) * 200)) , 15);
           1:
-            putpixel(ORDENATE + 45, 440 - (round((counts.tog / (counts.kolobr + 1)) * 12)) , 15);
+            putpixel(ORDENATE + 45, 440 - (round((counts.tog / (counts.kolobr + 1)) * 19.74)) , 15);
           2:
-            putpixel(ORDENATE + 45, 440 - (round((counts.request/(counts.kolobr + 1))* 50)) , 15);
+            putpixel(ORDENATE + 45, 440 - (round((counts.request/(counts.kolobr + 1))* 66.97)) , 15);
+
+          3: begin
+              putpixel(ORDENATE + 45, 440 - (round((counts.kotk / (counts.kol + 1)) * 200)) , 15);
+              putpixel(ORDENATE + 45, 440 - (round((counts.tog / (counts.kolobr + 1)) * 19.74)) , 4);
+              putpixel(ORDENATE + 45, 440 - (round((counts.request/(counts.kolobr + 1)) * 20.292)) , 2);
+             end;
           end;
         1:;
         2:
@@ -34,10 +40,17 @@ implementation
             0:
               putpixel(ORDENATE + 45, 440 - (round((counts.kotk / (counts.kol + 1)) * 200)) , 15);
             1:
-              putpixel(ORDENATE + 45, 440 - (round((counts.tog / (counts.kolobr + 1)) * 12)) , 15);
+              putpixel(ORDENATE + 45, 440 - (round((counts.tog / (counts.kolobr + 1)) * 19.74)) , 15);
             2:
-              putpixel(ORDENATE + 45, 440 - (round((counts.request/(counts.kolobr + 1))* 50)) , 15);
+              putpixel(ORDENATE + 45, 440 - (round((counts.request/(counts.kolobr + 1))* 66.97)) , 15);
+            3: begin
+                putpixel(ORDENATE + 45, 440 - (round((counts.kotk / (counts.kol + 1)) * 200)) , 15);
+                putpixel(ORDENATE + 45, 440 - (round((counts.tog / (counts.kolobr + 1)) * 19.74)) , 4);
+                putpixel(ORDENATE + 45, 440 - (round((counts.request/(counts.kolobr + 1)) * 20.292)) , 2);
+               end;
           end;
+
+
       end;
     end;
 
@@ -100,7 +113,7 @@ implementation
           begin
             settextstyle(smallfont, horizDir, 4);
             for i:= 0 to 9 do begin
-              str(0.4 * (i + 1 ):1:1, num);
+              str(0.3 * (i + 1 ):1:1, num);
               outtextxy(x - 20 , (y  - 20 * (i + 1)) - 5, num);
             end;
             settextstyle(6, vertDir,1);
@@ -220,6 +233,22 @@ implementation
           0 : outtextxy(25 , 50 + 0 * alignment , 'Rejection probability');
           1 : outtextxy(25 , 50 + 0 * alignment , 'Waiting time');
           2 : outtextxy(25 , 50 + 0 * alignment , 'Number of requests in the buffer');
+          3 : begin
+                setFillStyle(solidfill, 15);
+                bar(25, 56, 33, 64);
+                outtextxy(40 , 50 + 0 * alignment , 'Rejection probability');
+
+                setFillStyle(solidfill, 4);
+                bar(255, 56, 263, 64);
+                outtextxy(270 , 50 + 0 * alignment , 'Waiting time');
+
+
+                setFillStyle(solidfill, 2);
+                bar(410, 56, 418, 64);
+                outtextxy(425, 50 + 0 * alignment , 'Requests in the buffer');
+                setFillStyle(solidfill, 15);
+              end;
+
         end;
         settextstyle(2, HorizDir,4);
 

@@ -140,11 +140,11 @@ implementation
         end;
       end;
       close(output_t);
-      if mode <> 1 then begin
+      if flag2 <> 3 then begin
         gr.SimulationInfo(counts, counts1, counts2, lambdao, flag2);
         bot:= readkey;
       end;
-
+  end;
     end;
 
   procedure alg.simulateNOTZERO(lambdaO:real; kmin, dynamORconst, mode, flag2:INTEGER);
@@ -223,7 +223,7 @@ implementation
 
         end;
         close(output_t);
-        if mode <> 1 then begin
+        if flag2 <> 3 then begin
           gr.SimulationInfo(counts, counts1, counts2, lambdao, flag2);
           bot:= readkey;
         end;

@@ -157,6 +157,7 @@ procedure GUI.Menu(var zeroing, dynamORconst, mode1, kolsum:INTEGER; var lambdao
                         if bt = #13 then begin
                           ClearViewPort;
                           modes.main(flag, flag2, mode1, kolsum, zeroing, dynamORconst, lambdao);
+                          ClearViewPort;
                           goto goback4{222222222222222222222222222222222222222}
                           {give someone flag, flag2}
                         end;
@@ -181,6 +182,7 @@ procedure GUI.Menu(var zeroing, dynamORconst, mode1, kolsum:INTEGER; var lambdao
                         if bt = #13 then begin
                           ClearViewPort;
                           modes.main(flag, flag2,  mode1, kolsum, zeroing, dynamORconst, lambdao);
+                          ClearViewPort;
                           goto goback3{222222222222222222222222222222222222222}
                         end;
                       end;
@@ -205,6 +207,7 @@ procedure GUI.Menu(var zeroing, dynamORconst, mode1, kolsum:INTEGER; var lambdao
                         if bt = #13 then begin
                           ClearViewPort;
                           modes.main(flag, flag2,  mode1, kolsum, zeroing, dynamORconst, lambdao);
+                          ClearViewPort;
                           goto goback2{222222222222222222222222222222222222222}
                           {give someone flag, flag2}
                         end;
