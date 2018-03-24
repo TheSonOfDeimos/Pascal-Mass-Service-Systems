@@ -63,22 +63,36 @@ implementation
   			bas12(elem, counts, counts1, counts2, indbuf);
 
       if counts.kolobr <> kolprev then begin
-        counts.request:= counts.request + indbuf^.bufp;
+        {counts.request:= counts.request + indbuf^.bufp;}
 
         {1}
-        if tail^.prev^.bufn = 1 then
+        if ob^.bufn = 1 then begin
           counts1.request:= counts1.request + 1;
-        if tail^.prev^.prev^.bufn = 1 then
+          counts.request:= counts.request + 1;
+        end;
+        if tail^.prev^.bufn = 1 then begin
           counts1.request:= counts1.request + 1;
-        if tail^.prev^.prev^.prev^.bufn = 1 then
+          counts.request:= counts.request + 1;
+        end;
+
+        if tail^.prev^.prev^.bufn = 1 then begin
           counts1.request:= counts1.request + 1;
+          counts.request:= counts.request + 1;
+        end;
         {2}
-        if tail^.prev^.bufn = 2 then
+        if ob^.bufn = 2 then begin
           counts2.request:= counts2.request + 1;
-        if tail^.prev^.prev^.bufn = 2 then
+          counts.request:= counts.request + 1;
+        end;
+        if tail^.prev^.bufn = 2 then begin
           counts2.request:= counts2.request + 1;
-        if tail^.prev^.prev^.prev^.bufn = 2 then
+          counts.request:= counts.request + 1;
+        end;
+        if tail^.prev^.prev^.bufn = 2 then begin
           counts2.request:= counts2.request + 1;
+          counts.request:= counts.request + 1;
+        end;
+
 
         kolprev:= counts.kolobr;
       end;

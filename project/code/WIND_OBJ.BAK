@@ -187,7 +187,7 @@ implementation
 
   procedure windows.table(dynamORconst:INTEGER; lambdao:REAL);
     var bt, line, P, WaiT, ReqB, step, Lam, save:STRING;
-        n, align:INTEGER;
+        n, align, kolobr:INTEGER;
         tpinput: file of count;
         counts:count;
 
@@ -204,19 +204,20 @@ implementation
       settextstyle(2, horizDir, 5);
       outtextxy(20, align - 30, 'Lambda' + step + 'P(all)' +'  '+ step + 'P(1)' +'  '+ step + 'P(2)' + step +
                 'WaiT(all)' + step + 'WaiT(1)' + step + 'WaiT(2)' + step +
-                'ReqB(all)' + step + 'ReqB(1)'+ step + 'ReqB(2)');
+                'RqB(all)' + step + 'RqB(1)'+ step + 'RqB(2)');
       settextstyle(2, horizDir, 5);
       while not eof(tpinput)  do begin
 
-        str(lambdaO:4:1, Lam); {LAmbda}
-        lam:= lam + '   '
+        str(lambdaO:5:1, Lam); {LAmbda}
+        lam:= lam + ' ';
         {all}
         read(tpinput, counts);
+        kolobr:= counts.kolobr;
         str((100 * (counts.kotk/(counts.kol + 1))):2:2, save); {P}
         P:= save + '%' + step;
         str((counts.tog/(counts.kolobr + 1)):3:2, save);{WaiT}
         WaiT:= save  + step;
-        str((counts.request/(counts.kolobr + 1)):3:2, save);{ReqB}
+        str((counts.request/(kolobr + 1)):3:2, save);{ReqB}
         ReqB:= save + step;
 
         {1}
@@ -224,22 +225,22 @@ implementation
         str((100 * (counts.kotk/(counts.kol + 1))):2:2, save); {P}
         P:= P + save + '%' + step;
         str((counts.tog/(counts.kolobr + 1)):3:2, save);{WaiT}
-        WaiT:=  WaiT + save + step;
-        str((counts.request/(counts.kolobr + 1)):3:2, save);{ReqB}
-        ReqB:= ReqB + save + step;
+        WaiT:=  WaiT +'   '+ save + step;
+        str((counts.request/(kolobr + 1)):3:2, save);{ReqB}
+        ReqB:= ReqB +'   '+ save + step;
 
         {2}
         read(tpinput, counts);
         str((100 * (counts.kotk/(counts.kol + 1))):2:2, save); {P}
         P:= P + save + '%' + step;
         str((counts.tog/(counts.kolobr + 1)):3:2, save);{WaiT}
-        WaiT:=  WaiT + save + step;
-        str((counts.request/(counts.kolobr + 1)):3:2, save);{ReqB}
-        ReqB:= ReqB + save + step;
+        WaiT:=  WaiT +'   '+ save + step;
+        str((counts.request/(kolobr + 1)):3:2, save);{ReqB}
+        ReqB:= ReqB +'  '+ save + step;
 
-        line:= lam + step + P + WaiT + ReqB;
+        line:= lam + step + P + WaiT + '  ' + ReqB;
         outtextxy(20, align, line);
-        align:= align + 12;
+        align:= align + 15;
         if dynamORconst = 1 then begin
           lambdaO:= lambdaO + 0.1;
         end;
@@ -253,7 +254,7 @@ implementation
     var
        axe:graphik;
        bt, tab:STRING;
-       i, res, res1:INTEGER;
+       i, res, res, kolobr:INTEGER;
        counts:count;
        input: file of count;
     begin
@@ -294,7 +295,7 @@ implementation
           res1:= res1 + 1;
         end;
 
-        if res1 > 1 then begin
+        if res1 > 2 then begin
           res1:= 0;
         end;
 
@@ -526,6 +527,126 @@ implementation
                            end;
                       until (bt = #9);
                     end;
+              2: begin
+                  SetColor(15);
+                  settextstyle(6, horizDir, 3);
+                  outtextXY(45, 45, 'Requests in buff');
+                  settextstyle(2, horizDir, 5);
+                  outtextXY(400, 45, 'Press <- or -> to choose');
+                  {P all}
+                  axe.coordinates(45, 440, lambdaO, kmin, counts, dynamORconst, 2, 2);
+                  SetColor(15);
+                  setfillstyle(solidfill, 15);
+                  seek(input, 0);
+
+                  read(input, counts);
+                  Moveto(45, 440 - round(counts.request/(kolobr + 1) * 66.97));
+                  read(input, counts);
+                  read(input, counts);
+                  for i:= 1 to 20 do begin
+                    read(input, counts);
+                    kolobr:= counts.kolobr;
+                    lineto(i * 28 + 45, 440 - round(counts.request/(kolobr + 1) * 66.97));
+                    fillEllipse(i * 28 + 45, 440 - round(counts.request/(kolobr + 1) * 66.97), 2, 2);
+                    read(input, counts);
+                    read(input, counts);
+                  end;
+                  repeat
+                     bt:= readkey;
+                     if bt = #77 then begin
+                       res:= res + 1;
+                     end;
+
+                     if bt = #75 then begin
+                       res:= res - 1;
+                     end;
+
+                     if res > 2 then begin
+                       res:= 0;
+                     end;
+                     if res < 0 then begin
+                       res:= 2;
+                     end;
+
+                     if (bt = #77) or (bt = #75) then begin
+
+                       SetColor(15);
+                       settextstyle(6, horizDir, 3);
+                       outtextXY(45, 45, 'Requests in buff (all)');
+                       ClearViewPort;
+                       settextstyle(2, horizDir, 5);
+                       outtextXY(400, 45, 'Press <- or -> to choose');
+
+                       axe.coordinates(45, 440, lambdaO, kmin, counts, dynamORconst, 2, 2);
+                       case res of
+                           0: begin
+                                 {P all}
+                                 settextstyle(6, horizDir, 3);
+                                 outtextXY(45, 45, 'Requests in buff (all)');
+                                 SetColor(15);
+                                 setfillstyle(solidfill, 15);
+                                 seek(input, 0);
+
+                                 read(input, counts);
+                                 kolobr:= counts.kolobr;
+                                 Moveto(45, 440 - round(counts.request/(kolobr + 1) * 66.97));
+                                 read(input, counts);
+                                 read(input, counts);
+                                 for i:= 1 to 20 do begin
+                                   read(input, counts);
+                                   kolobr:= counts.kolobr;
+                                   lineto(i * 28 + 45, 440 - round(counts.request/(kolobr + 1) * 66.97));
+                                   fillEllipse(i * 28 + 45, 440 - round(counts.request/(kolobr + 1) * 66.97), 2, 2);
+                                   read(input, counts);
+                                   read(input, counts);
+                                 end;
+                              end;
+                           1: begin
+                                 {p1}
+                                 settextstyle(6, horizDir, 3);
+                                 outtextXY(45, 45, 'Requests in buff (1)');
+                                 SetColor(2);
+                                 setfillstyle(solidfill, 2);
+                                 seek(input, 0);
+                                 read(input, counts);
+                                 kolobr:= counts.kolobr;
+                                 read(input, counts);
+                                 Moveto(45, 440 - round(counts.request/(kolobr + 1) * 66.97));
+                                 read(input, counts);
+                                 for i:= 1 to 20 do begin
+                                   read(input, counts);
+                                   kolobr:= counts.kolobr;
+                                   read(input, counts);
+                                   lineto(i * 28 + 45, 440 - round(counts.request/(kolobr + 1) * 66.97));
+                                   fillEllipse(i * 28 + 45, 440 - round(counts.request/(kolobr + 1) * 66.97), 2, 2);
+                                   read(input, counts);
+                                 end;
+                               end;
+                                 {p2}
+                           2: begin
+                               settextstyle(6, horizDir, 3);
+                               outtextXY(45, 45, 'Requests in buff (2)');
+                                   SetColor(4);
+                                   setfillstyle(solidfill, 4);
+                                   seek(input, 0);
+                                   read(input, counts);
+                                   kolobr:= counts.kolobr;
+                                   read(input, counts);
+                                   read(input, counts);
+                                   Moveto(45, 440 - round(counts.request/(kolobr + 1) * 66.97));
+                                   for i:= 1 to 20 do begin
+                                     read(input, counts);
+                                     kolobr:= counts.kolobr;
+                                     read(input, counts);
+                                     read(input, counts);
+                                     lineto(i * 28 + 45, 440 - round(counts.request/(kolobr + 1) * 66.97));
+                                     fillEllipse(i * 28 + 45, 440 - round(counts.request/(counts.kolobr + 1) * 66.97), 2, 2);
+                                   end;
+                                 end;
+                              end;
+                       end;
+                    until (bt = #9);
+                  end;
             end;
         end;
 

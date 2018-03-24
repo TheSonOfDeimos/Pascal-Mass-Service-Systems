@@ -62,25 +62,26 @@ implementation
   		else
   			bas12(elem, counts, counts1, counts2, indbuf);
 
-      if counts.kol <> kolprev then begin
-        counts.request:= counts.request + indbuf^.bufp;
+      if counts.kolobr <> kolprev then begin
+        {counts.request:= counts.request + indbuf^.next^.bufp + 1;}
 
         {1}
+        if ob^.bufn = 1 then
+          counts1.request:= counts1.request + 1;
         if tail^.prev^.bufn = 1 then
           counts1.request:= counts1.request + 1;
-        if tail^.prev^.prev^bufn = 1 then
-          counts1.request:= counts1.request + 1;
-        if tail^.prev^.prev^.prev^bufn = 1 then
+        if tail^.prev^.prev^.bufn = 1 then
           counts1.request:= counts1.request + 1;
         {2}
+        if ob^.bufn = 2 then
+          counts2.request:= counts2.request + 1;
         if tail^.prev^.bufn = 2 then
           counts2.request:= counts2.request + 1;
-        if tail^.prev^.prev^bufn = 2 then
-          counts2.request:= counts2.request + 1;
-        if tail^.prev^.prev^.prev^bufn = 2 then
+        if tail^.prev^.prev^.bufn = 2 then
           counts2.request:= counts2.request + 1;
 
-        kolprev:= counts.kol;
+        counts.request:= counts.request + counts1.request + counts2.request;
+        kolprev:= counts.kolobr;
       end;
 
 

@@ -254,7 +254,7 @@ implementation
     var
        axe:graphik;
        bt, tab:STRING;
-       i, res, res1:INTEGER;
+       i, res, res1, kolobr:INTEGER;
        counts:count;
        input: file of count;
     begin
@@ -295,7 +295,7 @@ implementation
           res1:= res1 + 1;
         end;
 
-        if res1 > 1 then begin
+        if res1 > 2 then begin
           res1:= 0;
         end;
 
@@ -427,13 +427,13 @@ implementation
                       seek(input, 0);
 
                       read(input, counts);
-                      Moveto(45, 440 - round(counts.tog/(counts.kolobr + 1) * 12));
+                      Moveto(45, 440 - round(counts.tog/(counts.kolobr + 1) * 19.74));
                       read(input, counts);
                       read(input, counts);
                       for i:= 1 to 20 do begin
                         read(input, counts);
-                        lineto(i * 28 + 45, 440 - round(counts.tog/(counts.kolobr + 1) * 12));
-                        fillEllipse(i * 28 + 45, 440 - round(counts.tog/(counts.kolobr + 1) * 12), 2, 2);
+                        lineto(i * 28 + 45, 440 - round(counts.tog/(counts.kolobr + 1) * 19.74));
+                        fillEllipse(i * 28 + 45, 440 - round(counts.tog/(counts.kolobr + 1) * 19.74), 2, 2);
                         read(input, counts);
                         read(input, counts);
                       end;
@@ -474,13 +474,13 @@ implementation
                                      seek(input, 0);
 
                                      read(input, counts);
-                                     Moveto(45, 440 - round(counts.tog/(counts.kolobr + 1) * 12));
+                                     Moveto(45, 440 - round(counts.tog/(counts.kolobr + 1) * 19.74));
                                      read(input, counts);
                                      read(input, counts);
                                      for i:= 1 to 20 do begin
                                        read(input, counts);
-                                       lineto(i * 28 + 45, 440 - round(counts.tog/(counts.kolobr + 1) * 12));
-                                       fillEllipse(i * 28 + 45, 440 - round(counts.tog/(counts.kolobr + 1) * 12), 2, 2);
+                                       lineto(i * 28 + 45, 440 - round(counts.tog/(counts.kolobr + 1) * 19.742));
+                                       fillEllipse(i * 28 + 45, 440 - round(counts.tog/(counts.kolobr + 1) * 19.74), 2, 2);
                                        read(input, counts);
                                        read(input, counts);
                                      end;
@@ -494,13 +494,13 @@ implementation
                                      seek(input, 0);
                                      read(input, counts);
                                      read(input, counts);
-                                     Moveto(45, 440 - round(counts.tog/(counts.kolobr + 1) * 12));
+                                     Moveto(45, 440 - round(counts.tog/(counts.kolobr + 1) * 19.74));
                                      read(input, counts);
                                      for i:= 1 to 20 do begin
                                        read(input, counts);
                                        read(input, counts);
-                                       lineto(i * 28 + 45, 440 - round(counts.tog/(counts.kolobr + 1) * 12));
-                                       fillEllipse(i * 28 + 45, 440 - round(counts.tog/(counts.kolobr + 1) * 12), 2, 2);
+                                       lineto(i * 28 + 45, 440 - round(counts.tog/(counts.kolobr + 1) * 19.74));
+                                       fillEllipse(i * 28 + 45, 440 - round(counts.tog/(counts.kolobr + 1) * 19.74), 2, 2);
                                        read(input, counts);
                                      end;
                                    end;
@@ -514,19 +514,140 @@ implementation
                                        read(input, counts);
                                        read(input, counts);
                                        read(input, counts);
-                                       Moveto(45, 440 - round(counts.tog/(counts.kolobr + 1) * 12));
+                                       Moveto(45, 440 - round(counts.tog/(counts.kolobr + 1) * 19.74));
                                        for i:= 1 to 20 do begin
                                          read(input, counts);
                                          read(input, counts);
                                          read(input, counts);
-                                         lineto(i * 28 + 45, 440 - round(counts.tog/(counts.kolobr + 1) * 12));
-                                         fillEllipse(i * 28 + 45, 440 - round(counts.tog/(counts.kolobr + 1) * 12), 2, 2);
+                                         lineto(i * 28 + 45, 440 - round(counts.tog/(counts.kolobr + 1) * 19.74));
+                                         fillEllipse(i * 28 + 45, 440 - round(counts.tog/(counts.kolobr + 1) * 19.74), 2, 2);
                                        end;
                                      end;
                                   end;
                            end;
                       until (bt = #9);
                     end;
+              2: begin
+                  SetColor(15);
+                  settextstyle(6, horizDir, 3);
+                  outtextXY(45, 45, 'Requests in buff');
+                  settextstyle(2, horizDir, 5);
+                  outtextXY(400, 45, 'Press <- or -> to choose');
+                  {P all}
+                  axe.coordinates(45, 440, lambdaO, kmin, counts, dynamORconst, 2, 2);
+                  SetColor(15);
+                  setfillstyle(solidfill, 15);
+                  seek(input, 0);
+
+                  read(input, counts);
+                  kolobr:= counts.kolobr;
+                  Moveto(45, 440 - round(counts.request/(kolobr + 1) * 66.97));
+                  read(input, counts);
+                  read(input, counts);
+                  for i:= 1 to 20 do begin
+                    read(input, counts);
+                    kolobr:= counts.kolobr;
+                    lineto(i * 28 + 45, 440 - round(counts.request/(kolobr + 1) * 66.97));
+                    fillEllipse(i * 28 + 45, 440 - round(counts.request/(kolobr + 1) * 66.97), 2, 2);
+                    read(input, counts);
+                    read(input, counts);
+                  end;
+                  repeat
+                     bt:= readkey;
+                     if bt = #77 then begin
+                       res:= res + 1;
+                     end;
+
+                     if bt = #75 then begin
+                       res:= res - 1;
+                     end;
+
+                     if res > 2 then begin
+                       res:= 0;
+                     end;
+                     if res < 0 then begin
+                       res:= 2;
+                     end;
+
+                     if (bt = #77) or (bt = #75) then begin
+
+                       SetColor(15);
+                       settextstyle(6, horizDir, 3);
+                       outtextXY(45, 45, 'Requests in buff (all)');
+                       ClearViewPort;
+                       settextstyle(2, horizDir, 5);
+                       outtextXY(400, 45, 'Press <- or -> to choose');
+
+                       axe.coordinates(45, 440, lambdaO, kmin, counts, dynamORconst, 2, 2);
+                       case res of
+                           0: begin
+                                 {P all}
+                                 settextstyle(6, horizDir, 3);
+                                 outtextXY(45, 45, 'Requests in buff (all)');
+                                 SetColor(15);
+                                 setfillstyle(solidfill, 15);
+                                 seek(input, 0);
+
+                                 read(input, counts);
+                                 kolobr:= counts.kolobr;
+                                 Moveto(45, 440 - round(counts.request/(kolobr + 1) * 66.97));
+                                 read(input, counts);
+                                 read(input, counts);
+                                 for i:= 1 to 20 do begin
+                                   read(input, counts);
+                                   kolobr:= counts.kolobr;
+                                   lineto(i * 28 + 45, 440 - round(counts.request/(kolobr + 1) * 66.97));
+                                   fillEllipse(i * 28 + 45, 440 - round(counts.request/(kolobr + 1) * 66.97), 2, 2);
+                                   read(input, counts);
+                                   read(input, counts);
+                                 end;
+                              end;
+                           1: begin
+                                 {p1}
+                                 settextstyle(6, horizDir, 3);
+                                 outtextXY(45, 45, 'Requests in buff (1)');
+                                 SetColor(2);
+                                 setfillstyle(solidfill, 2);
+                                 seek(input, 0);
+                                 read(input, counts);
+                                 kolobr:= counts.kolobr;
+                                 read(input, counts);
+                                 Moveto(45, 440 - round(counts.request/(kolobr + 1) * 66.97));
+                                 read(input, counts);
+                                 for i:= 1 to 20 do begin
+                                   read(input, counts);
+                                   kolobr:= counts.kolobr;
+                                   read(input, counts);
+                                   lineto(i * 28 + 45, 440 - round(counts.request/(kolobr + 1) * 66.97));
+                                   fillEllipse(i * 28 + 45, 440 - round(counts.request/(kolobr + 1) * 66.97), 2, 2);
+                                   read(input, counts);
+                                 end;
+                               end;
+                                 {p2}
+                           2: begin
+                               settextstyle(6, horizDir, 3);
+                               outtextXY(45, 45, 'Requests in buff (2)');
+                                   SetColor(4);
+                                   setfillstyle(solidfill, 4);
+                                   seek(input, 0);
+                                   read(input, counts);
+                                   kolobr:= counts.kolobr;
+                                   read(input, counts);
+                                   read(input, counts);
+                                   Moveto(45, 440 - round(counts.request/(kolobr + 1) * 66.97));
+                                   for i:= 1 to 20 do begin
+                                     read(input, counts);
+                                     kolobr:= counts.kolobr;
+                                     read(input, counts);
+                                     read(input, counts);
+                                     lineto(i * 28 + 45, 440 - round(counts.request/(kolobr + 1) * 66.97));
+                                     fillEllipse(i * 28 + 45, 440 - round(counts.request/(kolobr + 1) * 66.97), 2, 2);
+                                   end;
+                                 end;
+                              end;
+                       end;
+                    until (bt = #9);
+                  end;
             end;
         end;
 

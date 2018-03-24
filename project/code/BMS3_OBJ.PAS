@@ -39,10 +39,13 @@ implementation
                  while nombuf^.prev <> nil do begin
                      nombuf^.buft:= nombuf^.prev^.buft;
                      nombuf^.bufn:= nombuf^.prev^.bufn;
+
+
                      nombuf:= nombuf^.prev;
                  end;
                  nombuf^.buft:= 0;
                  nombuf^.bufn:= 0;
+                
 
             end;
 
@@ -64,7 +67,7 @@ implementation
 
   	begin
 
-  		
+
   		r1:= random;
   		r2:= random;
     	tayob:= -1 / lambdao * ln(r1 * r2);

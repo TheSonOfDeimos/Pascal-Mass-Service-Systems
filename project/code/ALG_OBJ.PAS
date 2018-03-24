@@ -55,15 +55,15 @@ implementation
                randomize;
                x^.bufn:= 0;
                x^.buft:= 0;
-               x^.bufp:= 4;
-               for i:= 0 to 3 do begin
+               x^.bufp:= 3;
+               for i:= 0 to 2 do begin
                    new(x^.next);
                    x^.next^.prev:= x;
                    x:= x^.next;
                    x^.next:= nil;
                    x^.bufn:= 0;
                    x^.buft:= 0;
-                   x^.bufp:= 3 - i;
+                   x^.bufp:= 2 - i;
                end;
                tail:= x;
             end;
