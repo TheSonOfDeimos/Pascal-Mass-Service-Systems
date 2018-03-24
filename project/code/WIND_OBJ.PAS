@@ -181,8 +181,23 @@ implementation
     end;
 
   procedure windows.meta(var tick:INTEGER);
+    var
+      readme:text;
+      line, bt:STRING;
+      align:INTEGER;
     begin
-
+      setcolor(15);
+      settextstyle(smallfont, horizDir, 5);
+      assign(readme, 'meta.txt');
+      reset(readme);
+      align:= 50;
+      while not eof(readme) do begin
+        readln(readme, line);
+        outtextXY(45, align, line);
+        align:= align + 15;
+      end;
+      close(readme);
+      bt:= readkey;
     end;
 
   procedure windows.table(dynamORconst:INTEGER; lambdao:REAL);
@@ -679,7 +694,19 @@ implementation
         2: begin
             case flag2 of
               0: mode(mode1);
-              1: values(zeroing, dynamORconst, kolsum, lambdao);
+              1: begin
+                  values(zeroing, dynamORconst, kolsum, lambdao);
+                  if zeroing = 0 then begin
+                    if kolsum > 1500 then begin
+                      kolsum:= 1500;
+                    end;
+                  end;
+                  if zeroing = 1 then begin
+                    if kolsum > 32000 then begin
+                      kolsum:= 32000;
+                    end;
+                  end;
+                 end;
               2: meta(kolsum);
             end;
            end;

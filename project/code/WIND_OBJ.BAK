@@ -181,8 +181,23 @@ implementation
     end;
 
   procedure windows.meta(var tick:INTEGER);
+    var
+      readme:text;
+      line, bt:STRING;
+      align:INTEGER;
     begin
-
+      setcolor(15);
+      settextstyle(smallfont, horizDir, 5);
+      assign(readme, 'meta.txt');
+      reset(readme);
+      align:= 50;
+      while not eof(readme) do begin
+        readln(readme, line);
+        outtextXY(45, align, line);
+        align:= align + 15;
+      end;
+      close(readme);
+      bt:= readkey;
     end;
 
   procedure windows.table(dynamORconst:INTEGER; lambdao:REAL);
@@ -254,7 +269,7 @@ implementation
     var
        axe:graphik;
        bt, tab:STRING;
-       i, res, res, kolobr:INTEGER;
+       i, res, res1, kolobr:INTEGER;
        counts:count;
        input: file of count;
     begin
@@ -427,13 +442,13 @@ implementation
                       seek(input, 0);
 
                       read(input, counts);
-                      Moveto(45, 440 - round(counts.tog/(counts.kolobr + 1) * 12));
+                      Moveto(45, 440 - round(counts.tog/(counts.kolobr + 1) * 19.74));
                       read(input, counts);
                       read(input, counts);
                       for i:= 1 to 20 do begin
                         read(input, counts);
-                        lineto(i * 28 + 45, 440 - round(counts.tog/(counts.kolobr + 1) * 12));
-                        fillEllipse(i * 28 + 45, 440 - round(counts.tog/(counts.kolobr + 1) * 12), 2, 2);
+                        lineto(i * 28 + 45, 440 - round(counts.tog/(counts.kolobr + 1) * 19.74));
+                        fillEllipse(i * 28 + 45, 440 - round(counts.tog/(counts.kolobr + 1) * 19.74), 2, 2);
                         read(input, counts);
                         read(input, counts);
                       end;
@@ -474,13 +489,13 @@ implementation
                                      seek(input, 0);
 
                                      read(input, counts);
-                                     Moveto(45, 440 - round(counts.tog/(counts.kolobr + 1) * 12));
+                                     Moveto(45, 440 - round(counts.tog/(counts.kolobr + 1) * 19.74));
                                      read(input, counts);
                                      read(input, counts);
                                      for i:= 1 to 20 do begin
                                        read(input, counts);
-                                       lineto(i * 28 + 45, 440 - round(counts.tog/(counts.kolobr + 1) * 12));
-                                       fillEllipse(i * 28 + 45, 440 - round(counts.tog/(counts.kolobr + 1) * 12), 2, 2);
+                                       lineto(i * 28 + 45, 440 - round(counts.tog/(counts.kolobr + 1) * 19.742));
+                                       fillEllipse(i * 28 + 45, 440 - round(counts.tog/(counts.kolobr + 1) * 19.74), 2, 2);
                                        read(input, counts);
                                        read(input, counts);
                                      end;
@@ -494,13 +509,13 @@ implementation
                                      seek(input, 0);
                                      read(input, counts);
                                      read(input, counts);
-                                     Moveto(45, 440 - round(counts.tog/(counts.kolobr + 1) * 12));
+                                     Moveto(45, 440 - round(counts.tog/(counts.kolobr + 1) * 19.74));
                                      read(input, counts);
                                      for i:= 1 to 20 do begin
                                        read(input, counts);
                                        read(input, counts);
-                                       lineto(i * 28 + 45, 440 - round(counts.tog/(counts.kolobr + 1) * 12));
-                                       fillEllipse(i * 28 + 45, 440 - round(counts.tog/(counts.kolobr + 1) * 12), 2, 2);
+                                       lineto(i * 28 + 45, 440 - round(counts.tog/(counts.kolobr + 1) * 19.74));
+                                       fillEllipse(i * 28 + 45, 440 - round(counts.tog/(counts.kolobr + 1) * 19.74), 2, 2);
                                        read(input, counts);
                                      end;
                                    end;
@@ -514,13 +529,13 @@ implementation
                                        read(input, counts);
                                        read(input, counts);
                                        read(input, counts);
-                                       Moveto(45, 440 - round(counts.tog/(counts.kolobr + 1) * 12));
+                                       Moveto(45, 440 - round(counts.tog/(counts.kolobr + 1) * 19.74));
                                        for i:= 1 to 20 do begin
                                          read(input, counts);
                                          read(input, counts);
                                          read(input, counts);
-                                         lineto(i * 28 + 45, 440 - round(counts.tog/(counts.kolobr + 1) * 12));
-                                         fillEllipse(i * 28 + 45, 440 - round(counts.tog/(counts.kolobr + 1) * 12), 2, 2);
+                                         lineto(i * 28 + 45, 440 - round(counts.tog/(counts.kolobr + 1) * 19.74));
+                                         fillEllipse(i * 28 + 45, 440 - round(counts.tog/(counts.kolobr + 1) * 19.74), 2, 2);
                                        end;
                                      end;
                                   end;
@@ -540,6 +555,7 @@ implementation
                   seek(input, 0);
 
                   read(input, counts);
+                  kolobr:= counts.kolobr;
                   Moveto(45, 440 - round(counts.request/(kolobr + 1) * 66.97));
                   read(input, counts);
                   read(input, counts);
@@ -640,7 +656,7 @@ implementation
                                      read(input, counts);
                                      read(input, counts);
                                      lineto(i * 28 + 45, 440 - round(counts.request/(kolobr + 1) * 66.97));
-                                     fillEllipse(i * 28 + 45, 440 - round(counts.request/(counts.kolobr + 1) * 66.97), 2, 2);
+                                     fillEllipse(i * 28 + 45, 440 - round(counts.request/(kolobr + 1) * 66.97), 2, 2);
                                    end;
                                  end;
                               end;
@@ -678,7 +694,19 @@ implementation
         2: begin
             case flag2 of
               0: mode(mode1);
-              1: values(zeroing, dynamORconst, kolsum, lambdao);
+              1: begin
+                  values(zeroing, dynamORconst, kolsum, lambdao);
+                  if zeroing = 0 then begin
+                    if lambdaO > 1500 then begin
+                      lambdaO:= 1500;
+                    end;
+                  end;
+                  if zeroing = 1 then begin
+                    if lambdaO > 32000 then begin
+                      lambdaO:= 32000l
+                    end;
+                  end;
+                 end;
               2: meta(kolsum);
             end;
            end;
