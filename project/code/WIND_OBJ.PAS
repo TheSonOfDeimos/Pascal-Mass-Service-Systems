@@ -187,7 +187,7 @@ implementation
 
   procedure windows.table(dynamORconst:INTEGER; lambdao:REAL);
     var bt, line, P, WaiT, ReqB, step, Lam, save:STRING;
-        n, align:INTEGER;
+        n, align, kolobr:INTEGER;
         tpinput: file of count;
         counts:count;
 
@@ -212,11 +212,12 @@ implementation
         lam:= lam + ' ';
         {all}
         read(tpinput, counts);
+        kolobr:= counts.kolobr;
         str((100 * (counts.kotk/(counts.kol + 1))):2:2, save); {P}
         P:= save + '%' + step;
         str((counts.tog/(counts.kolobr + 1)):3:2, save);{WaiT}
         WaiT:= save  + step;
-        str((counts.request/(counts.kolobr + 1)):3:2, save);{ReqB}
+        str((counts.request/(kolobr + 1)):3:2, save);{ReqB}
         ReqB:= save + step;
 
         {1}
@@ -225,7 +226,7 @@ implementation
         P:= P + save + '%' + step;
         str((counts.tog/(counts.kolobr + 1)):3:2, save);{WaiT}
         WaiT:=  WaiT +'   '+ save + step;
-        str((counts.request/(counts.kolobr + 1)):3:2, save);{ReqB}
+        str((counts.request/(kolobr + 1)):3:2, save);{ReqB}
         ReqB:= ReqB +'   '+ save + step;
 
         {2}
@@ -234,7 +235,7 @@ implementation
         P:= P + save + '%' + step;
         str((counts.tog/(counts.kolobr + 1)):3:2, save);{WaiT}
         WaiT:=  WaiT +'   '+ save + step;
-        str((counts.request/(counts.kolobr + 1)):3:2, save);{ReqB}
+        str((counts.request/(kolobr + 1)):3:2, save);{ReqB}
         ReqB:= ReqB +'  '+ save + step;
 
         line:= lam + step + P + WaiT + '  ' + ReqB;

@@ -294,7 +294,7 @@ implementation
         wordn:= 'average witing time (1): ' + wordn;
         outtextxy(240 , 60 + 4 * alignment , wordn);
 
-        str((counts1.request/counts1.kolobr):5:2, wordn);
+        str((counts1.request/counts.kolobr):5:2, wordn);
         wordn:= 'average req in buff (1): ' + wordn;
         outtextxy(240 , 60 + 5 * alignment , wordn);
 
@@ -319,7 +319,7 @@ implementation
         wordn:= 'average witing time (2): ' + wordn;
         outtextxy(430 , 60 + 4 * alignment , wordn);
 
-        str((counts2.request/(counts2.kolobr + 1)):5:2, wordn);
+        str((counts2.request/(counts.kolobr + 1)):5:2, wordn);
         wordn:= 'average req in buff (2): ' + wordn;
         outtextxy(430 , 60 + 5 * alignment , wordn);
 

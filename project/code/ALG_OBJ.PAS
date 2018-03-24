@@ -112,9 +112,17 @@ implementation
             if ((counts.kol mod round((kmin / 560) * 21) = 0) and (mode = 2)) then begin
               ORDENATE:= ORDENATE + 1;
             end;
-            if (counts.kol mod round(kmin / 560) = 0) and (mode = 0)then begin
-              ORDENATE:= ORDENATE + 1;
+            if mode = 0 then begin
+              if (counts.kol mod round(kmin / 560) = 0)then begin
+                ORDENATE:= ORDENATE + 1;
+              end;
+
+              {might be }
+              if counts.kol mod round(kmin / (560 - (kmin / round(kmin / 560)))) = 1 then begin
+                ORDENATE:= ORDENATE + 1;
+              end;
             end;
+
             prevVAL:= counts.kol;
           end;
 
@@ -192,8 +200,14 @@ implementation
               if (counts.kol mod round((kmin / 560) * 21) = 0) and (mode = 2)then begin
                 ORDENATE:= ORDENATE + 1;
               end;
-              if (counts.kol mod round(kmin / 560) = 0) and (mode = 0) then begin
-                ORDENATE:= ORDENATE + 1;
+              if mode = 0 then begin
+                if (counts.kol mod round(kmin / 560) = 0)then begin
+                  ORDENATE:= ORDENATE + 1;
+                end;
+                {might be deleted}
+                if counts.kol mod round(kmin / (560 - (kmin / round(kmin / 560)))) = 1 then begin
+                  ORDENATE:= ORDENATE + 1;
+                end;
               end;
               prevVAL:= counts.kol;
             end;
