@@ -6,8 +6,8 @@ type
   bms1 = object
     constructor init;
   	procedure forming_KOTK(var counts, counts1, counts2:count; elem:call);
-  	procedure gen_next_call(var elem:call);
-  	procedure main(var elem:call;  var counts, counts1, counts2:count);
+  	procedure gen_next_call(var elem:call; var lambdaofsourse:lambdaofS);
+  	procedure main(var elem:call;  var counts, counts1, counts2:count; var lambdaofsourse:lambdaofS);
   end;
 
 
@@ -23,31 +23,31 @@ implementation
         end;
   	  end;
 
-  procedure bms1.gen_next_call(var elem:call);
+  procedure bms1.gen_next_call(var elem:call; var lambdaofsourse:lambdaofS);
          var  r:REAL;
               tay:real;
 
          begin
 
-              
+
               if elem.nmin = 1 then begin
                 r:= random;
-                tay:= -1 / 2 * ln(r);
+                tay:= -1 / lambdaofsourse.lambda1 * ln(r);
                 elem.tpost:= elem.tpost + tay;
               end;
               if elem.nmin = 2  then begin
                 r:= random;
-                tay:= -1 / 3 * ln(r);
+                tay:= -1 / lambdaofsourse.lambda2 * ln(r);
                 elem.tpost:= elem.tpost + tay;
               end;
 
 
          end;
 
-  procedure bms1.main(var elem:call; var counts, counts1, counts2:count);
+  procedure bms1.main(var elem:call; var counts, counts1, counts2:count; var lambdaofsourse:lambdaofS);
     	begin
     		forming_kotk(counts, counts1, counts2, elem);
-    		gen_next_call(elem);
+    		gen_next_call(elem, lambdaofsourse);
     		counts.kol:= counts.kol + 1;
 
         if elem.nmin = 1 then begin

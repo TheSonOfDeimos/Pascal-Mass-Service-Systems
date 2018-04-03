@@ -13,7 +13,8 @@ interface
       procedure meta(var tick:INTEGER);
       procedure table(dynamORconst:INTEGER; lambdao:REAL);
       procedure plot(kmin, dynamORconst:INTEGER; lambdaO:REAL);
-      procedure main(flag, flag2:INTEGER;  var mode1, kolsum, zeroing, dynamORconst:INTEGER; var lambdao:REAL);
+      procedure main(flag, flag2:INTEGER;  var mode1, kolsum, zeroing, dynamORconst:INTEGER; var lambdao:REAL;
+                 var lambdaofsourse:lambdaofS);
       constructor init(var tick:INTEGER);
     end;
 implementation
@@ -672,7 +673,8 @@ implementation
 
     end;
 
-  procedure windows.main(flag, flag2:INTEGER; var mode1, kolsum, zeroing, dynamORconst:INTEGER; var lambdao:REAL);
+  procedure windows.main(flag, flag2:INTEGER; var mode1, kolsum, zeroing, dynamORconst:INTEGER; var lambdao:REAL;
+            var lambdaofsourse:lambdaofS);
 
     var simulating:alg;
         alig:integer;
@@ -680,7 +682,7 @@ implementation
     begin
       case flag of
         0: begin
-            simulating.main(lambdao, kolsum, dynamORconst, zeroing, flag2, mode1);
+            simulating.main(lambdao, kolsum, dynamORconst, zeroing, flag2, mode1, lambdaofsourse);
            end;
 
         1: begin

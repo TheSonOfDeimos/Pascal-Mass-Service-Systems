@@ -6,8 +6,8 @@ type
 bms4 = object
    constructor init;
 	 procedure forming_tosv(var tosv, lambdaO:REAL);
-	 procedure gen_next_call(var elem:call);
-	 procedure main(var elem:call; var tosv, lambdaO:real; var counts, counts1, counts2:count);
+	 procedure gen_next_call(var elem:call; var lambdaofsourse:lambdaofS);
+	 procedure main(var elem:call; var tosv, lambdaO:real; var counts, counts1, counts2:count; var lambdaofsourse:lambdaofS);
 end;
 
 
@@ -18,7 +18,7 @@ implementation
         		tayob:real ;
   	begin
 
-  	
+
   		r1:= random;
   		r2:= random;
   		tayob:= - 1 / lambdaO * ln(r1 * r2);
@@ -26,7 +26,7 @@ implementation
 
   	end;
 
-  procedure bms4.gen_next_call(var elem:call);
+  procedure bms4.gen_next_call(var elem:call; var lambdaofsourse:lambdaofS);
            var  r:REAL;
                 tay:real;
 
@@ -34,22 +34,22 @@ implementation
 
              if elem.nmin = 1 then begin
                r:= random;
-               tay:= -1 / 2 * ln(r);
+               tay:= -1 / lambdaofsourse.lambda1 * ln(r);
                elem.tpost:= elem.tpost + tay;
              end;
              if elem.nmin = 2  then begin
                r:= random;
-               tay:= -1 / 3 * ln(r);
+               tay:= -1 / lambdaofsourse.lambda2 * ln(r);
                elem.tpost:= elem.tpost + tay;
              end;
 
 
            end;
 
-  procedure bms4.main(var elem:call; var tosv, lambdaO:real; var counts, counts1, counts2:count);
+  procedure bms4.main(var elem:call; var tosv, lambdaO:real; var counts, counts1, counts2:count; var lambdaofsourse:lambdaofS);
   	begin
   		forming_tosv(tosv, lambdaO);
-  		gen_next_call(elem);
+  		gen_next_call(elem, lambdaofsourse);
       counts.kol:= counts.kol + 1;
 
       if elem.nmin = 1 then begin

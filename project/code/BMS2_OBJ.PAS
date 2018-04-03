@@ -6,8 +6,8 @@ type
   bms2 = object
      constructor init;
   	 procedure buff_record_call(var indbuf:buff; elem:call);
-     procedure  gen_next_call(var elem:call);
-  	 procedure main(var indbuf:buff; var elem:call; var counts, counts1, counts2:count);
+     procedure  gen_next_call(var elem:call;  var lambdaofsourse:lambdaofS);
+  	 procedure main(var indbuf:buff; var elem:call; var counts, counts1, counts2:count; var lambdaofsourse:lambdaofS);
   end;
 
 
@@ -20,29 +20,29 @@ implementation
               indbuf^.buft:= elem.tpost;
           end;
 
-  procedure bms2.gen_next_call(var elem:call);
+  procedure bms2.gen_next_call(var elem:call; var lambdaofsourse:lambdaofS);
          var  r:real;
               tay:real;
 
          begin
-           
+
            if elem.nmin = 1 then begin
              r:= random;
-             tay:= -1 / 2 * ln(r);
+             tay:= -1 / lambdaofsourse.lambda1 * ln(r);
              elem.tpost:= elem.tpost + tay;
            end;
            if elem.nmin = 2  then begin
              r:= random;
-             tay:= -1 / 3 * ln(r);
+             tay:= -1 / lambdaofsourse.lambda2 * ln(r);
              elem.tpost:= elem.tpost + tay;
            end;
 
          end;
 
-  procedure bms2.main(var indbuf:buff; var elem:call; var counts, counts1, counts2:count);
+  procedure bms2.main(var indbuf:buff; var elem:call; var counts, counts1, counts2:count; var lambdaofsourse:lambdaofS);
   	begin
   		buff_record_call(indbuf, elem);
-  		gen_next_call(elem);
+  		gen_next_call(elem, lambdaofsourse);
   		counts.kol:= counts.kol + 1;
 
       if elem.nmin = 1 then begin

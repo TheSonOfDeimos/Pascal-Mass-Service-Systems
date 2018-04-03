@@ -10,9 +10,9 @@ interface
       constructor init;
       procedure zerro(var counts, counts1, counts2:count;  var kolprev:INTEGER);
       procedure buff_create(var head:buff; var tail:buff);
-      procedure simulateZERO(lambdaO:real; kmin, dynamORconst, mode, flag2:INTEGER);
-      procedure simulateNOTZERO(lambdaO:real; kmin, dynamORconst, mode, flag2:INTEGER);
-      procedure main(lambdao:REAL; kmin, dynamORconst, zeroing, flag2, mode:INTEGER);
+      procedure simulateZERO(lambdaO:real; kmin, dynamORconst, mode, flag2:INTEGER; var lambdaofsourse:lambdaofS);
+      procedure simulateNOTZERO(lambdaO:real; kmin, dynamORconst, mode, flag2:INTEGER; var lambdaofsourse:lambdaofS);
+      procedure main(lambdao:REAL; kmin, dynamORconst, zeroing, flag2, mode:INTEGER; var lambdaofsourse:lambdaofS);
     end;
 
 implementation
@@ -68,7 +68,7 @@ implementation
                tail:= x;
             end;
 
-  procedure alg.simulateZERO(lambdaO:real; kmin, dynamORconst, mode, flag2:INTEGER);
+  procedure alg.simulateZERO(lambdaO:real; kmin, dynamORconst, mode, flag2:INTEGER; var lambdaofsourse:lambdaofS);
     var
       {my types}
       counts, counts1, counts2 : count;
@@ -105,7 +105,7 @@ implementation
         end;
 
         while counts.kol <> kmin do begin
-          bos.main(elem1, elem2, kolprev, tosv, lambdaO, indbuf, tail, ob, counts, counts1, counts2);
+          bos.main(elem1, elem2, kolprev, tosv, lambdaO, indbuf, tail, ob, counts, counts1, counts2, lambdaofsourse);
 
           {conditions}
           if counts.kol <> prevVAl then begin
@@ -155,7 +155,7 @@ implementation
 
     end;
 
-  procedure alg.simulateNOTZERO(lambdaO:real; kmin, dynamORconst, mode, flag2:INTEGER);
+  procedure alg.simulateNOTZERO(lambdaO:real; kmin, dynamORconst, mode, flag2:INTEGER; var lambdaofsourse:lambdaofS);
       var
         {my types}
         counts, counts1, counts2 : count;
@@ -193,7 +193,7 @@ implementation
           end;
 
           while counts.kol <> kmin * (i + 1) do begin
-            bos.main(elem1, elem2, kolprev, tosv, lambdaO, indbuf, tail, ob, counts, counts1, counts2);
+            bos.main(elem1, elem2, kolprev, tosv, lambdaO, indbuf, tail, ob, counts, counts1, counts2, lambdaofsourse);
 
             {conditions}
             if counts.kol <> prevVAl then begin
@@ -243,14 +243,14 @@ implementation
         end;
     end;
 
-  procedure alg.main(lambdao:REAL; kmin, dynamORconst, zeroing, flag2, mode:INTEGER);
+  procedure alg.main(lambdao:REAL; kmin, dynamORconst, zeroing, flag2, mode:INTEGER; var lambdaofsourse:lambdaofS);
     begin
 
       if zeroing = 1 then begin
-        simulateZERO(lambdaO, kmin, dynamORconst, mode, flag2);
+        simulateZERO(lambdaO, kmin, dynamORconst, mode, flag2, lambdaofsourse);
       end;
       if zeroing = 0 then begin
-        simulateNOTZERO(lambdaO, kmin, dynamORconst, mode, flag2);
+        simulateNOTZERO(lambdaO, kmin, dynamORconst, mode, flag2, lambdaofsourse);
       end;
 
     end;

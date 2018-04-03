@@ -1,6 +1,6 @@
   USES
 
-  crt, graph, tpko_obj, GUI_obj, wind_obj;
+  crt, graph, tpko_obj, GUI_obj, wind_obj, types;
 
   VAR
     x,i, y, g, h:INTEGER;
@@ -8,6 +8,7 @@
     gr:graphik;
     wind:windows;
     inter:GUI;
+    lambdaofsourse:lambdaofS;
 
     zeroing, dynamORconst,mode1, kolsum:INTEGER;
     lambdao:REAL;
@@ -17,11 +18,14 @@
     x:= 10;
     y:= 475;
     dynamorconst:= 1;
-    kolsum:= 1500;
+    kolsum:= 2000;
     lambdao:= 1;
-    zeroing:= 0;
+    lambdaofsourse.lambda1:= 3;
+    lambdaofsourse.lambda2:= 3;
+    zeroing:= 1;
     mode1:= 2;
-    inter.Menu(zeroing, dynamORconst, mode1, kolsum, lambdao);
+
+    inter.Menu(zeroing, dynamORconst, mode1, kolsum, lambdao, lambdaofsourse);
 
 
 

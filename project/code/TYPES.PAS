@@ -22,6 +22,10 @@ type BUFF = ^list;
           tog:REAL;
      end;
 
+     lambdaofS = record
+        lambda1, lambda2: real;
+     end;
+
 
 implementation
 

@@ -11,7 +11,7 @@ Interface
       procedure BottomnMain(ButN, alig, flag:integer; nameB:STRING);
       procedure BottomnShift(ButN, alig, flag:integer; nameB:STRING);
       procedure PointingDot(ButN, alig, stpointX, stpointY:INTEGER; var flag:integer; j:STRING);
-      procedure menu(var zeroing, dynamORconst, mode1, kolsum:INTEGER; var lambdao:REAL);
+      procedure menu(var zeroing, dynamORconst, mode1, kolsum:INTEGER; var lambdao:REAL; var lambdaofsourse:lambdaofS);
 
     end;
 
@@ -113,7 +113,7 @@ procedure GUI.PointingDot(ButN, alig, stpointX, stpointY:integer; var flag:INTEG
       end;
     end;
 
-procedure GUI.Menu(var zeroing, dynamORconst, mode1, kolsum:INTEGER; var lambdao:REAL);
+procedure GUI.Menu(var zeroing, dynamORconst, mode1, kolsum:INTEGER; var lambdao:REAL; var lambdaofsourse:lambdaofS);
   label goback, goback2, goback3, goback4;
   var
     alig, flag, flag2, tick:integer;
@@ -156,7 +156,7 @@ procedure GUI.Menu(var zeroing, dynamORconst, mode1, kolsum:INTEGER; var lambdao
                         PointingDot(4, 50, (GetMaxX div 4) - 10, (125 + 60 * flag) + 55, flag2, bt);
                         if bt = #13 then begin
                           ClearViewPort;
-                          modes.main(flag, flag2, mode1, kolsum, zeroing, dynamORconst, lambdao);
+                          modes.main(flag, flag2, mode1, kolsum, zeroing, dynamORconst, lambdao ,lambdaofsourse);
                           ClearViewPort;
                           goto goback4{222222222222222222222222222222222222222}
                           {give someone flag, flag2}
@@ -181,7 +181,7 @@ procedure GUI.Menu(var zeroing, dynamORconst, mode1, kolsum:INTEGER; var lambdao
                         PointingDot(2, 50, (GetMaxX div 4) - 10, (125 + 60 * flag) + 55, flag2, bt);
                         if bt = #13 then begin
                           ClearViewPort;
-                          modes.main(flag, flag2,  mode1, kolsum, zeroing, dynamORconst, lambdao);
+                          modes.main(flag, flag2,  mode1, kolsum, zeroing, dynamORconst, lambdao, lambdaofsourse);
                           ClearViewPort;
                           goto goback3{222222222222222222222222222222222222222}
                         end;
@@ -206,7 +206,7 @@ procedure GUI.Menu(var zeroing, dynamORconst, mode1, kolsum:INTEGER; var lambdao
                         PointingDot(3, 50, (GetMaxX div 4) - 10, (125 + 60 * flag) + 55, flag2, bt);
                         if bt = #13 then begin
                           ClearViewPort;
-                          modes.main(flag, flag2,  mode1, kolsum, zeroing, dynamORconst, lambdao);
+                          modes.main(flag, flag2,  mode1, kolsum, zeroing, dynamORconst, lambdao, lambdaofsourse);
                           ClearViewPort;
                           goto goback2{222222222222222222222222222222222222222}
                           {give someone flag, flag2}
